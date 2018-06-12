@@ -8,20 +8,20 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "register-service-worker": "^1.0.0",
-    "vue": "^2.5.16",
-    "vue-router": "^3.0.1",
-    "vuetify": "^1.0.19",
-    "vuex": "^3.0.1"
+    "register-service-worker": "1.4.0",
+    "vue": "2.5.16",
+    "vue-router": "3.0.1",
+    "vuetify": "1.0.19",
+    "vuex": "3.0.1"
   },
   "devDependencies": {
-    "@babel/polyfill": "^7.0.0-beta.49",
-    "@vue/cli-plugin-eslint": "^3.0.0-beta.15",
-    "@vue/cli-plugin-pwa": "^3.0.0-beta.15",
-    "@vue/cli-service": "^3.0.0-beta.15",
-    "@vue/eslint-config-prettier": "^3.0.0-beta.16",
+    "@babel/polyfill": "7.0.0-beta.50",
+    "@vue/cli-plugin-eslint": "3.0.0-beta.15",
+    "@vue/cli-plugin-pwa": "3.0.0-beta.15",
+    "@vue/cli-service": "3.0.0-beta.15",
+    "@vue/eslint-config-prettier": "3.0.0-beta.16",
     "vue-cli-plugin-vuetify": "0.1.5",
-    "vue-template-compiler": "^2.5.16"
+    "vue-template-compiler": "2.5.16"
   },
   "browserslist": [
     "> 1%",
