@@ -1,59 +1,52 @@
 <template>
-  <v-app>
+  <v-app id='rolodromo'>
     <v-navigation-drawer
-      persistent
-      :mini-variant='miniVariant'
-      :clipped='clipped'
+      app
+      clipped
       v-model='drawer'
-      enable-resize-watcher
-      fixed
-      app
+      class='grey lighten-4'
     >
-      <v-list>
-        <v-list-tile
-          value='true'
-          v-for='(item, i) in items'
-          :key='i'
-        >
-          <v-list-tile-action>
-            <v-icon v-html='item.icon'></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text='item.title'></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
+      <rol-menu />
     </v-navigation-drawer>
-    <v-toolbar
-      app
-      :clipped-left='clipped'
-    >
-      <v-toolbar-side-icon @click.stop='drawer = !drawer'></v-toolbar-side-icon>
-      <v-toolbar-title v-text='title'></v-toolbar-title>
-      <v-spacer></v-spacer>
+    <v-toolbar color='primary white--text' app absolute dense clipped-left justify-center align-center>
+      <v-toolbar-side-icon color='white--text' @click.native='drawer = !drawer'>
+        <logo size='small'/>
+      </v-toolbar-side-icon>
+      <span class='title ml-3 mr-5'> {{ title }}</span>
     </v-toolbar>
     <v-content>
-      <router-view/>
+      <v-container fluid fill-height class='grey lighten-4' pa-1>
+        <transition>
+          <router-view></router-view>
+        </transition>
+      </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
+import Logo from '@/components/Logo.vue'
+import RolMenu from '@/components/Menu.vue'
+import { mapActions } from 'vuex'
+
 export default {
   name: 'App',
+  components: {
+    Logo,
+    RolMenu
+  },
   data() {
     return {
       clipped: false,
       drawer: false,
-      items: [
-        {
-          icon: 'bubble_chart',
-          title: 'Inspire'
-        }
-      ],
-      miniVariant: false,
-      title: 'Rolodromo'
+      title: 'Rolodromo.com'
     }
+  },
+  created() {
+    this.loadUserInfo()
+  },
+  methods: {
+    ...mapActions('auth', ['loadUserInfo'])
   }
 }
 </script>
