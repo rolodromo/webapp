@@ -1,20 +1,30 @@
 <template>
-  <v-container class='dados' grid-list-md>
-    <v-btn fab fixed bottom left dark color='red' class='hidden-md-and-up' @click.native.stop='newRollDialog = true' >
+  <v-container fluid  class='dados' grid-list-md>
+
+    <v-btn fab fixed bottom left dark color='red' class='hidden-md-and-up' @click.native.stop='newRollDialog = true'>
       <v-icon dark>add</v-icon>
     </v-btn>
+
     <v-layout row wrap justify-space-between >
-      <v-flex xs12 style='position: relative;' text-xs-left pb-3>
-        <v-btn fab top dark color='red' class='hidden-sm-and-down' @click.native.stop='newRollDialog = true'>
-          <v-icon dark>add</v-icon>
-        </v-btn>
+
+      <v-flex xs12 style='position: relative;' text-xs-left pb-3 >
+        <v-layout row fluid align-baseline>
+          <v-btn fab  dark color='red' class='hidden-sm-and-down' @click.native.stop='newRollDialog = true'>
+            <v-icon dark>add</v-icon>
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn  lat outline icon @click='sound = !sound'>
+            <v-icon>{{ sound ? 'record_voice_over' : 'voice_over_off' }}</v-icon>
+          </v-btn>
+        </v-layout>
       </v-flex>
 
-      <v-flex sm6 xs12 md3 v-for='row in rolls' :key='`${row.name}-${row.roll}`' >
+      <!-- Rolls -->
+      <v-flex sm6 xs12 md3 v-for='row in rolls' :key='`${row.name}-${row.roll}`'>
         <roll :name='row.name' :roll='row.roll' @roll='log' @remove='removeRoll'></roll>
       </v-flex>
 
-      <v-flex xs12 class='logs' >
+      <v-flex xs12 class='logs'>
         <roll-log :logs='logs'></roll-log>
       </v-flex>
 
@@ -29,7 +39,7 @@
 import Roll from '@/components/dice/RollCard.vue'
 import NewRollDialog from '@/components/dice/NewRollDialog'
 import RollLog from '@/components/dice/RollLog'
-import { remove, isEqual } from 'lodash'
+import { isEqual, remove } from 'lodash'
 
 export default {
   name: 'dice',
@@ -40,6 +50,8 @@ export default {
   },
   data() {
     return {
+      sound: false,
+      speaker: null,
       newRollDialog: false,
       logs: [],
       rolls: [
@@ -50,7 +62,23 @@ export default {
     }
   },
   methods: {
+    speak(txt) {
+      // cheaper than https://igorbezsmertnyi.github.io/speech-demo/synthesis
+      const msg = new window.SpeechSynthesisUtterance()
+      // TODO: move to config
+      msg.lang = 'es-ES'
+      msg.text = txt
+      msg.volume = 1
+      msg.rate = 1.5
+      msg.pitch = 0.8
+      if (speechSynthesis.speaking) speechSynthesis.cancel()
+
+      speechSynthesis.speak(msg)
+    },
     log(roll) {
+      if (this.sound) {
+        this.speak(`${roll.data.total}`)
+      }
       this.logs.unshift({
         title: roll.name,
         subtitle: roll.data.rolls.join(', '),
