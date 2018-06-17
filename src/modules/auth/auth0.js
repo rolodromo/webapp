@@ -1,7 +1,7 @@
 import decode from 'jwt-decode'
 import * as auth0 from 'auth0-js'
 
-import config from '../config'
+import config from '../../config'
 
 const { AUTH0_DOMAIN, AUTH0_CLIENT_ID, CALLBACK_URL } = config.auth0
 

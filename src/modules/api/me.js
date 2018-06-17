@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { unset } from 'lodash'
 
-import config from '../config'
+import config from '../../config'
 
 const ME = axios.create({
   baseURL: `${config.api.baseUrl}/api/me`
