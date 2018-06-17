@@ -10,8 +10,10 @@
     "lint-fix": "vue-cli-service lint -- --fix"
   },
   "dependencies": {
+    "@guumaster/rpgen": "1.2.2",
     "auth0-js": "9.6.1",
     "axios": "0.18.0",
+    "gsap": "2.0.1",
     "jwt-decode": "2.2.0",
     "localforage": "1.7.2",
     "register-service-worker": "1.4.0",
