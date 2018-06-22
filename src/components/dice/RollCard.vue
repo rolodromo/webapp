@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import rpgen from '@guumaster/rpgen'
+import rpgen from '@rolodromo/rpgen'
 import { TweenLite } from 'gsap'
 
 export default {

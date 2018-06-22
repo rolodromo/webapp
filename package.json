@@ -10,7 +10,7 @@
     "lint-fix": "vue-cli-service lint -- --fix"
   },
   "dependencies": {
-    "@guumaster/rpgen": "1.2.2",
+    "@rolodromo/rpgen": "1.2.2",
     "auth0-js": "9.6.1",
     "axios": "0.18.0",
     "gsap": "2.0.1",
