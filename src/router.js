@@ -5,6 +5,7 @@ import Dice from './views/Dice.vue'
 import Generators from './views/Generators.vue'
 import Login from './views/Login.vue'
 import Callback from './views/Callback.vue'
+import NotFound from './views/NotFound.vue'
 
 Vue.use(Router)
 
@@ -34,6 +35,10 @@ export default new Router({
     {
       path: '/callback',
       component: Callback
+    },
+    {
+      path: '*',
+      component: NotFound
     }
   ]
 })

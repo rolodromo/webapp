@@ -5,11 +5,12 @@ COPY . .
 RUN npm install
 RUN npm run build
 
-FROM node:10-alpine
+FROM nginx:1-alpine
 WORKDIR /app
 COPY --from=build /src/dist .
-RUN npm install -g http-server
+RUN mkdir -p /etc/nginx/logs
+COPY config/default.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 3000
+EXPOSE 80
 
-CMD  ["http-server", "/app", "-p", "3000"]
+CMD ["nginx", "-g", "daemon off;"]
