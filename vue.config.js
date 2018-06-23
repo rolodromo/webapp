@@ -1,3 +1,5 @@
+const { IgnorePlugin } = require('webpack')
+
 module.exports = {
   pwa: {
     name: 'Rolodromo',
@@ -5,5 +7,8 @@ module.exports = {
     msTileColor: '#7f7c8a'
   },
 
-  lintOnSave: false
+  lintOnSave: false,
+  configureWebpack: {
+    plugins: [new IgnorePlugin(/^\.\/locale$/, /moment$/)]
+  }
 }

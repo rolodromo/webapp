@@ -15,14 +15,29 @@ import ListItem from '@/components/generator/ListItem.vue'
 export default {
   name: 'generators-list',
   components: { ListItem },
+  props: {
+    filter: String
+  },
   data() {
     return {
       list: []
     }
   },
+  computed: {
+    method() {
+      switch (this.filter) {
+        case 'featured':
+          return 'loadFeatured'
+        case 'own':
+          return 'loadOwnGenerators'
+        default:
+          return 'loadAll'
+      }
+    }
+  },
   async created() {
-    this.list = await generators.loadAll()
-    console.log('list', this.list)
+    // TODO: Cache? Store?
+    this.list = await generators[this.method]()
   },
   methods: {}
 }

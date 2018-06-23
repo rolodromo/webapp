@@ -4,8 +4,6 @@ import Home from './views/Home.vue'
 import Dice from './views/Dice.vue'
 import Generators from './views/generators/Index.vue'
 import GeneratorsList from './views/generators/List.vue'
-import GeneratorsFeatured from './views/generators/Featured.vue'
-import GeneratorsOwned from './views/generators/Owned.vue'
 import GeneratorDetail from './views/generators/Detail.vue'
 import About from './views/About.vue'
 import Login from './views/Login.vue'
@@ -39,24 +37,34 @@ export default new Router({
         {
           path: '',
           name: 'generators',
-          component: GeneratorsList
+          component: GeneratorsList,
+          props: {
+            filter: 'all'
+          }
         },
         {
           path: 'destacados',
           name: 'featured',
-          component: GeneratorsFeatured
+          component: GeneratorsList,
+          props: {
+            filter: 'featured'
+          }
         },
         {
           path: 'propios',
           name: 'owned',
-          component: GeneratorsOwned
+          component: GeneratorsList,
+          props: {
+            filter: 'own'
+          }
         }
       ]
     },
     {
       path: '/generadores/:slug/:id',
       name: 'generator-detail',
-      component: GeneratorDetail
+      component: GeneratorDetail,
+      props: true
     },
     {
       path: '/login',

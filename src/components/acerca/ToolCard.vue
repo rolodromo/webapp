@@ -1,11 +1,11 @@
 <template>
-  <v-card flat class='transparent pa-0 darken-1'>
-    <v-toolbar dense dark class='secondary'>
+  <v-card flat  class='white pa-0 darken-1'>
+    <v-toolbar dense dark flat class='secondary'>
       <v-toolbar-title  dense>
         <slot name='title'></slot>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn v-if='linkTo' fab small icon target='_blank' :href='linkTo' color='red lighten-1'>
+      <v-btn v-if='linkTo' fab small icon target='_blank' :href='linkTo' color='red'>
         <v-icon>open_in_new</v-icon>
       </v-btn>
     </v-toolbar>
