@@ -1,8 +1,12 @@
 <template>
+
   <v-container fill-height>
     <v-slide-x-transition>
       <v-layout column align-center>
-        Generadores!
+        <div>
+          Detalle - {{$route.params.slug}} - {{$route.params.id}}
+
+        </div>
       </v-layout>
     </v-slide-x-transition>
   </v-container>
@@ -10,7 +14,7 @@
 
 <script>
 export default {
-  name: 'generators',
+  name: 'generatorDetail',
   components: {},
   methods: {}
 }
