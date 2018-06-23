@@ -21,19 +21,22 @@
         </transition>
       </v-container>
     </v-content>
+    <toast/>
   </v-app>
 </template>
 
 <script>
 import Logo from '@/components/Logo.vue'
-import RolMenu from '@/components/Menu.vue'
+import RolMenu from '@/components/layout/Menu.vue'
+import Toast from '@/components/layout/Toast.vue'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'App',
   components: {
     Logo,
-    RolMenu
+    RolMenu,
+    Toast
   },
   data() {
     return {
