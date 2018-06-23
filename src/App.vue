@@ -26,17 +26,13 @@
 </template>
 
 <script>
-import Logo from '@/components/Logo.vue'
 import RolMenu from '@/components/layout/Menu.vue'
-import Toast from '@/components/layout/Toast.vue'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'App',
   components: {
-    Logo,
-    RolMenu,
-    Toast
+    RolMenu
   },
   data() {
     return {

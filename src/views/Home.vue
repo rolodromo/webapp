@@ -12,13 +12,11 @@
 
 <script>
 import HelloWorld from '@/components/HelloWorld.vue'
-import Logo from '@/components/Logo.vue'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld,
-    Logo
+    HelloWorld
   },
   methods: {}
 }
