@@ -5,6 +5,7 @@ import Dice from './views/Dice.vue'
 import Generators from './views/generators/Index.vue'
 import GeneratorsList from './views/generators/List.vue'
 import GeneratorDetail from './views/generators/Detail.vue'
+import Soundboard from './views/Soundboard.vue'
 import About from './views/About.vue'
 import Login from './views/Login.vue'
 import Callback from './views/Callback.vue'
@@ -24,6 +25,11 @@ export default new Router({
       path: '/dados',
       name: 'dice',
       component: Dice
+    },
+    {
+      path: '/soundboard',
+      name: 'soundboard',
+      component: Soundboard
     },
     {
       path: '/acerca',

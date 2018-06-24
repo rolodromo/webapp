@@ -20,6 +20,16 @@
       </v-list-tile-content>
     </v-list-tile>
 
+
+    <v-list-tile :to='{name: "soundboard"}' router>
+      <v-list-tile-action>
+        <v-icon>library_music</v-icon>
+      </v-list-tile-action>
+      <v-list-tile-content>
+        <v-list-tile-title>Sonidos</v-list-tile-title>
+      </v-list-tile-content>
+    </v-list-tile>
+
     <v-list-tile :to='{name: "dice"}' router>
       <v-list-tile-action>
         <v-icon>widgets</v-icon>
