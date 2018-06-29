@@ -53,7 +53,7 @@
 
     <v-list-tile :to='{name: "login"}' router v-if='!isLogged'>
       <v-list-tile-action>
-        <icon name='sign-in' scale='1.15'></icon>
+        <icon name='sign-in-alt' scale='1.15'></icon>
       </v-list-tile-action>
       <v-list-tile-content>
         <v-list-tile-title>Entrar</v-list-tile-title>
@@ -62,7 +62,7 @@
 
     <v-list-tile v-if='isLogged' @click.native='logout'>
       <v-list-tile-action>
-        <icon name='sign-out' flip='horizontal' scale='1.15'></icon>
+        <icon name='sign-out-alt' flip='horizontal' scale='1.15'></icon>
       </v-list-tile-action>
       <v-list-tile-content>
         <v-list-tile-title>Salir</v-list-tile-title>

@@ -57,6 +57,14 @@ export default new Router({
           }
         },
         {
+          path: 'favoritos',
+          name: 'liked',
+          component: GeneratorsList,
+          props: {
+            filter: 'liked'
+          }
+        },
+        {
           path: 'propios',
           name: 'owned',
           component: GeneratorsList,

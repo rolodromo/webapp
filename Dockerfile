@@ -2,7 +2,7 @@ FROM node:10-alpine as build
 WORKDIR /src
 COPY . .
 
-RUN npm install
+RUN npm ci
 RUN npm run build
 
 FROM nginx:1-alpine

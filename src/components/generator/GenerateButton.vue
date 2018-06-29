@@ -1,7 +1,7 @@
 <template>
   <v-btn  dark fab color='red' class='generate' @click.native='generate()'>
     <transition name='spin'>
-      <icon v-if='counter > 0' name='refresh' scale='1.75'></icon>
+      <icon v-if='counter > 0' name='sync-alt' scale='1.75'></icon>
     </transition>
   </v-btn>
 </template>
