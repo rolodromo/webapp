@@ -1,0 +1,9 @@
+FROM nginx:1-alpine
+WORKDIR /app
+COPY dist .
+RUN mkdir -p /etc/nginx/logs
+COPY config/default.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
