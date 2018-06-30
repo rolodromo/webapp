@@ -1,52 +1,36 @@
 <template>
-  <v-flex fill-height xs12>
-    <v-layout column wrap fill-height class='white'>
-
-      <v-flex style='flex-grow: 0;'>
-        <v-card flat color='secondary'>
-          <v-layout row align-center justify-center style='position: relative'>
-            <v-flex xs1 style='max-width: 3em !important;'>
-              <v-btn small icon dark @click='$router.back()'>
-                <icon name='arrow-circle-left' scale='2'></icon>
-              </v-btn>
-            </v-flex>
-            <v-flex>
-              <v-card-title class='title white--text pl-2 pr-5'>
-                {{ generator.name }}
-              </v-card-title>
-              <generate-button @generate='generate()'></generate-button>
-            </v-flex>
-
-          </v-layout>
-        </v-card>
+  <v-container fluid fill-height class='my-0 py-0'>
+    <v-layout column>
+      <v-flex>
+        <!-- TOOLBAR -->
+        <viewer-toolbar :name='generator.name'/>
       </v-flex>
 
-      <v-flex d-flex style='flex-grow: 0;'>
-        <v-card-text>
-          {{ generator.desc }}
-          <v-divider></v-divider>
+      <v-flex xs12 fill-height class='white pa-0 ma-0'>
 
-        </v-card-text>
+        <!-- GENERATOR BTN -->
+        <generate-button @generate='generate()'></generate-button>
 
-      </v-flex>
-      <v-flex style='max-height: calc(100vh - 15.01em); overflow-y: auto;'>
-
-        <v-card flat class='ql-container ma-2' style='flex: 1 1 100%;'>
-          <v-card-text class='ql-editor' v-html='rawText'></v-card-text>
+        <!-- GENERATOR TEXT -->
+        <v-card flat class='transparent ql-container pa-0 ma-0 text-container' :class='heightClass'>
+          <v-card-text class='ql-editor pa-3 px-4' v-html='rawText'></v-card-text>
         </v-card>
       </v-flex>
 
     </v-layout>
-  </v-flex>
+  </v-container>
 </template>
 
 <script>
-import GenerateButton from './GenerateButton.vue'
 import rpgen from '@rolodromo/rpgen'
+import { mapGetters } from 'vuex'
+import GenerateButton from './GenerateButton.vue'
+import ViewerToolbar from './ViewerToolbar.vue'
 
 export default {
   name: 'Viewer',
   components: {
+    ViewerToolbar,
     GenerateButton
   },
   props: {
@@ -60,6 +44,10 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('auth', ['isLogged']),
+    heightClass() {
+      return this.$vuetify.breakpoint.smAndDown ? 'height-sm' : 'height-big'
+    },
     text() {
       return this.rawText
     },
@@ -100,3 +88,16 @@ export default {
   }
 }
 </script>
+<style scoped>
+.text-container {
+  overflow-y: auto;
+}
+
+.height-sm {
+  max-height: 71.5vh;
+}
+
+.height-big {
+  max-height: 81.2vh;
+}
+</style>

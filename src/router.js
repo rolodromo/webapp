@@ -5,6 +5,7 @@ import Dice from './views/Dice.vue'
 import Generators from './views/generators/Index.vue'
 import GeneratorsList from './views/generators/List.vue'
 import GeneratorDetail from './views/generators/Detail.vue'
+import GeneratorEdit from './views/generators/Edit.vue'
 import Soundboard from './views/Soundboard.vue'
 import About from './views/About.vue'
 import Callback from './views/Callback.vue'
@@ -77,6 +78,12 @@ export default new Router({
       path: '/generadores/:slug/:id',
       name: 'generator-detail',
       component: GeneratorDetail,
+      props: true
+    },
+    {
+      path: '/generadores/:slug/:id/edit',
+      name: 'generator-edit',
+      component: GeneratorEdit,
       props: true
     },
     {

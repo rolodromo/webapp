@@ -1,5 +1,5 @@
 <template>
-  <v-btn dark fab color='red' class='generate' @click.native='generate()'>
+  <v-btn dark fab color='red' :class='generateClass' @click.native='generate()'>
     <transition name='spin'>
       <icon v-if='counter > 0' name='sync-alt' scale='1.75'></icon>
     </transition>
@@ -10,6 +10,11 @@ export default {
   data() {
     return {
       counter: 1
+    }
+  },
+  computed: {
+    generateClass() {
+      return this.$vuetify.breakpoint.smAndDown ? 'generate-sm' : 'generate-big'
     }
   },
   methods: {
@@ -24,11 +29,18 @@ export default {
 }
 </script>
 <style scoped>
-.generate {
-  /*bottom: 1.5em;*/
-  top: 1.3em;
+.generate-sm {
+  top: 6.5em;
   position: absolute;
-  right: 0.2em;
+  right: 0em;
+  z-index: 3;
+}
+
+.generate-big{
+  top: 6.5em;
+  position: absolute;
+  right: 2.5em;
+  z-index: 3;
 }
 
 .spin-enter-active {

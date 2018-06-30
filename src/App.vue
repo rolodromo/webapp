@@ -42,3 +42,18 @@ export default {
   }
 }
 </script>
+<style>
+.ql-container .ql-editor {
+  font-size: 1.2em;
+}
+
+.height-sm .ql-editor {
+  height: 60vh;
+  overflow-y: auto;
+}
+
+.height-big .ql-editor {
+  height: 77vh;
+  overflow-y: auto;
+}
+</style>

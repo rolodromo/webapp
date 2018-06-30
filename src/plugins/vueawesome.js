@@ -6,6 +6,7 @@ import 'vue-awesome/icons/arrow-circle-left'
 import 'vue-awesome/icons/sign-out-alt'
 import 'vue-awesome/icons/sign-in-alt'
 import 'vue-awesome/icons/sync-alt'
+import 'vue-awesome/icons/minus'
 
 import Icon from 'vue-awesome/components/Icon'
 
