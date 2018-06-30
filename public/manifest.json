@@ -48,7 +48,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/",
+  "start_url": "/?launcher=true",
   "scope": "/",
   "display": "standalone",
   "background_color": "#7f7c8a",

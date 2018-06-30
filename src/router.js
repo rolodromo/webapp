@@ -50,7 +50,7 @@ export default new Router({
         },
         {
           path: 'destacados',
-          name: 'featured',
+          name: 'generators-featured',
           component: GeneratorsList,
           props: {
             filter: 'featured'
@@ -58,7 +58,7 @@ export default new Router({
         },
         {
           path: 'favoritos',
-          name: 'liked',
+          name: 'generators-liked',
           component: GeneratorsList,
           props: {
             filter: 'liked'
@@ -66,10 +66,10 @@ export default new Router({
         },
         {
           path: 'propios',
-          name: 'owned',
+          name: 'generators-owned',
           component: GeneratorsList,
           props: {
-            filter: 'own'
+            filter: 'owned'
           }
         }
       ]

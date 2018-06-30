@@ -1,70 +1,20 @@
-import { pick, pickBy, get } from 'lodash'
+import { get } from 'lodash'
 import * as api from '../../modules/api/generators'
-
-const getTableNames = tables => `\n${tables}`.match(/\n;([^\n])+\n/gm).map(name => name.replace(/;/, '').trim())
-
-const extractTableNames = generator => {
-  let names = getTableNames(generator.data.tables)
-  const scopes = Object.keys(generator.children)
-
-  names = scopes.reduce((all, scope) => {
-    return all.concat(getTableNames(generator.children[scope].tables).map(name => `${scope}.${name}`))
-  }, names)
-  return names
-}
+import * as apiMe from '../../modules/api/me'
 
 export const state = {
   current: {},
   local: {},
   names: [],
-  tableNames: []
+  tableNames: [],
+  list: []
 }
 export const mutations = {
-  setNames(state, names) {
-    state.names = names
+  setList(state, list) {
+    state.list = list
   },
-  set(state, newGenerator) {
-    state.current = newGenerator
-    state.local = newGenerator
-  },
-  localMeta(state, data) {
-    state.local = {
-      ...state.local,
-      ...pick(data, ['name', 'desc'])
-    }
-  },
-  localData(state, data) {
-    state.local = {
-      ...state.local,
-      data: {
-        ...state.local.data,
-        ...pick(data, ['tpls', 'tables', 'alias'])
-      }
-    }
-    state.tableNames = extractTableNames(state.local)
-  },
-  addExternal(state, payload) {
-    state.local.data = {
-      ...state.local.data,
-      alias: {
-        ...state.local.data.alias,
-        [payload.alias]: payload.id
-      }
-    }
-    state.local.children = {
-      ...state.local.children,
-      [payload.alias]: payload.content
-    }
-  },
-  removeExternal(state, key) {
-    state.local = {
-      ...state.local,
-      children: pickBy(state.local.children, (v, k) => k !== key),
-      data: {
-        ...state.local.data,
-        alias: pickBy(state.local.data.alias, (v, k) => k !== key)
-      }
-    }
+  setGenerator(state, generator) {
+    state.current = generator
   }
 }
 export const getters = {
@@ -91,61 +41,25 @@ export const getters = {
 export const actions = {
   async load({ commit }, id) {
     const generator = await api.loadGenerator(id)
-    commit('set', generator)
+    commit('setGenerator', generator)
     return generator
   },
-  async save({ state, commit }, payload) {
-    let newData
-
-    const data = {
-      ...pick(payload, ['name', 'desc']),
-      data: {
-        ...pick(payload.data, ['tpls', 'tables', 'alias'])
-      }
+  async loadList({ commit }, type) {
+    let list
+    switch (type) {
+      case 'featured':
+        list = await api.loadFeatured()
+        break
+      case 'owned':
+        list = await apiMe.loadOwnGenerators()
+        break
+      // case 'liked':
+      //   list = await api.loadLikedGenerators()
+      //   break
+      default:
+        list = await api.loadAll()
     }
-
-    try {
-      if (!state.current.id) {
-        newData = await api.createGenerator(data)
-      } else {
-        newData = await api.updateGenerator(state.current.id, data)
-      }
-      commit('set', {
-        ...state.local,
-        ...newData
-      })
-      commit('toast/success', 'Guardado con éxito', { root: true })
-      return newData
-    } catch (e) {
-      console.log(e)
-      commit('toast/error', 'Error al guardar', { root: true })
-    }
-  },
-  async remove({ state, commit }) {
-    try {
-      await api.deleteGenerator(state.current.id)
-      commit('toast/success', 'Eliminado con éxito', { root: true })
-    } catch (e) {
-      console.log(e)
-      commit('toast/error', 'Error al eliminar', { root: true })
-    }
-  },
-  async loadNames({ state, commit }) {
-    if (state.names.length) {
-      return state.names
-    }
-    const names = await api.loadNames()
-    commit('setNames', names)
-    return names
-  },
-  async loadExternal({ commit }, payload) {
-    const external = await api.loadGenerator(payload.id)
-    commit('addExternal', {
-      alias: payload.name,
-      id: payload.id,
-      content: { ...pick(external.data, ['tpls', 'tables']) }
-    })
-    return external
+    commit('setList', list)
   }
 }
 export default {

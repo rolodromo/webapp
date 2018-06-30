@@ -1,7 +1,10 @@
 <template>
-  <v-container grid-list-lg>
+  <v-container fluid grid-list-lg>
     <v-layout row wrap>
-      <v-flex xs12 sm8 md6 lg4 v-for='generator in list' :key='generator.id'>
+      <v-flex xs12>
+        <selector-menu :filter='filter'></selector-menu>
+      </v-flex>
+      <v-flex xs12 sm12 md6 lg4 xl3 v-for='generator in list' :key='generator.id' >
         <list-item :generator='generator'></list-item>
       </v-flex>
     </v-layout>
@@ -9,36 +12,31 @@
 </template>
 
 <script>
-import * as generators from '../../modules/api/generators'
+import { mapActions, mapState } from 'vuex'
 import ListItem from '@/components/generator/ListItem.vue'
+import SelectorMenu from '@/components/generator/Menu.vue'
 
 export default {
   name: 'generators-list',
-  components: { ListItem },
+  components: { ListItem, SelectorMenu },
   props: {
     filter: String
   },
-  data() {
-    return {
-      list: []
-    }
-  },
   computed: {
-    method() {
-      switch (this.filter) {
-        case 'featured':
-          return 'loadFeatured'
-        case 'own':
-          return 'loadOwnGenerators'
-        default:
-          return 'loadAll'
-      }
+    ...mapState({
+      list: state => state.generators.list
+    })
+  },
+  watch: {
+    filter(newVal) {
+      this.loadList(newVal)
     }
   },
-  async created() {
-    // TODO: Cache? Store?
-    this.list = await generators[this.method]()
+  created() {
+    this.loadList(this.filter)
   },
-  methods: {}
+  methods: {
+    ...mapActions('generators', ['loadList'])
+  }
 }
 </script>
