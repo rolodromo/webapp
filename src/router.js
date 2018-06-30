@@ -7,7 +7,6 @@ import GeneratorsList from './views/generators/List.vue'
 import GeneratorDetail from './views/generators/Detail.vue'
 import Soundboard from './views/Soundboard.vue'
 import About from './views/About.vue'
-import Login from './views/Login.vue'
 import Callback from './views/Callback.vue'
 import NotFound from './views/NotFound.vue'
 
@@ -79,11 +78,6 @@ export default new Router({
       name: 'generator-detail',
       component: GeneratorDetail,
       props: true
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
     },
     {
       path: '/callback',
