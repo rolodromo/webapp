@@ -140,7 +140,7 @@
   </v-container>
 </template>
 <script>
-import ToolCard from '@/components/acerca/ToolCard.vue'
+import ToolCard from '@/components/about/ToolCard.vue'
 
 export default {
   components: {
