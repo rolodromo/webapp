@@ -59,7 +59,7 @@
       <v-divider light/>
       <v-subheader>Ajustes</v-subheader>
 
-      <v-list-tile  @click.native='startLogin' v-if='!isLogged'>
+      <v-list-tile @click.native='startLogin' v-if='!isLogged'>
         <v-list-tile-action>
           <icon name='sign-in-alt' scale='1.15'></icon>
         </v-list-tile-action>

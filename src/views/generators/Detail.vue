@@ -1,7 +1,7 @@
 <template>
   <v-container fluid fill-height class='px-2 pt-4 pb-2'>
     <v-slide-x-transition>
-      <v-layout  justify-center align-center>
+      <v-layout justify-center align-center>
         <generator-viewer :generator='content'></generator-viewer>
       </v-layout>
     </v-slide-x-transition>
@@ -11,6 +11,7 @@
 <script>
 import { mapActions } from 'vuex'
 import GeneratorViewer from '@/components/generator/Viewer.vue'
+
 export default {
   name: 'generator-detail',
   components: { GeneratorViewer },

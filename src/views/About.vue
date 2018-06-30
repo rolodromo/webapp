@@ -1,7 +1,7 @@
 <template>
-  <v-container  fill-height>
+  <v-container fill-height>
     <v-slide-x-transition>
-      <v-layout row wrap  align-content-start>
+      <v-layout row wrap align-content-start>
 
         <v-flex xs12>
           <v-card class='mb-4'>
@@ -16,7 +16,8 @@
                     <p>Esta es una WebApp con utilidades para cualquier juego de rol. Esta desarrollada por
                       <a href='http://github.com/guumaster'>guumaster</a>
                       sin ningun objetivo concreto, por la diversion de programar.</p>
-                    <p>Todo el código de la web se puede ver en github <a href='http://github.com/guumaster'>aquí</a>. Es
+                    <p>Todo el código de la web se puede ver en github <a href='http://github.com/guumaster'>aquí</a>.
+                    Es
                     un
                     proyecto abierto a ver, participar, replicar, mejorar como quieras. Solo tienes que tener ganas y
                     una
@@ -83,7 +84,7 @@
               <div slot='header'>
                 <v-icon class='panel-icon'>link</v-icon>
               <span class='header-label'>Recursos</span></div>
-              <v-card >
+              <v-card>
                 <v-card-text class='grey lighten-3 pb-4'>
                   <div class='pb-4'>
                     Fuentes, iconos, imagenes, todo lo necesario para montar esta web.
@@ -113,7 +114,7 @@
               <div slot='header'>
                 <v-icon class='panel-icon '>code</v-icon>
               <span class='header-label'>Herramientas</span></div>
-              <v-card >
+              <v-card>
                 <v-card-text class='grey lighten-3 pb-4'>
                   <div class='pb-4'>
                     Estas son algunas de las herramientas utlizadas para desarrollar

@@ -1,7 +1,7 @@
 <template>
-  <v-container fluid fill-height >
+  <v-container fluid fill-height>
     <v-slide-x-transition>
-      <v-layout column align-center justify-center >
+      <v-layout column align-center justify-center>
         <logo size='big' class='mt-3 mb-3'/>
         <HelloWorld msg='Bienvenido a Rolodromo.com'/>
 

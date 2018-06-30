@@ -9,7 +9,7 @@
         :color='all ? "blue lighten-2" : "blue lighten-1"'
         :to='{ name: "generators" }'
       >
-        <v-icon :left='blockMode' >list_alt</v-icon>
+        <v-icon :left='blockMode'>list_alt</v-icon>
         <span class='hidden-sm-and-down'>Todos</span>
       </v-btn>
     </v-flex>
@@ -53,7 +53,7 @@
         :color='owned ? "blue lighten-2" : "blue lighten-1"'
         :to='{ name: "generators-owned" }'
       >
-        <v-icon :left='blockMode' color='indigo' >face</v-icon>
+        <v-icon :left='blockMode' color='indigo'>face</v-icon>
         <span class='hidden-sm-and-down'>Propios</span>
       </v-btn>
     </v-flex>

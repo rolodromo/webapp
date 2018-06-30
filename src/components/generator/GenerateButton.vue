@@ -1,5 +1,5 @@
 <template>
-  <v-btn  dark fab color='red' class='generate' @click.native='generate()'>
+  <v-btn dark fab color='red' class='generate' @click.native='generate()'>
     <transition name='spin'>
       <icon v-if='counter > 0' name='sync-alt' scale='1.75'></icon>
     </transition>

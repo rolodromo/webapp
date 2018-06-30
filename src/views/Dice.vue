@@ -1,19 +1,19 @@
 <template>
-  <v-container fluid  class='dados' grid-list-md>
+  <v-container fluid class='dados' grid-list-md>
 
     <v-btn fab fixed bottom left dark color='red' class='hidden-md-and-up' @click.native.stop='newRollDialog = true'>
       <v-icon dark>add</v-icon>
     </v-btn>
 
-    <v-layout row wrap justify-space-between >
+    <v-layout row wrap justify-space-between>
 
-      <v-flex xs12 style='position: relative;' text-xs-left pb-3 >
+      <v-flex xs12 style='position: relative;' text-xs-left pb-3>
         <v-layout row fluid align-baseline>
-          <v-btn fab  dark color='red' class='hidden-sm-and-down' @click.native.stop='newRollDialog = true'>
+          <v-btn fab dark color='red' class='hidden-sm-and-down' @click.native.stop='newRollDialog = true'>
             <v-icon dark>add</v-icon>
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn  lat outline icon @click='sound = !sound'>
+          <v-btn lat outline icon @click='sound = !sound'>
             <v-icon>{{ sound ? 'record_voice_over' : 'voice_over_off' }}</v-icon>
           </v-btn>
         </v-layout>

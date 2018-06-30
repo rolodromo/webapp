@@ -1,7 +1,7 @@
 <template>
-  <v-card flat  class='white pa-0 darken-1'>
+  <v-card flat class='white pa-0 darken-1'>
     <v-toolbar dense dark flat class='secondary'>
-      <v-toolbar-title  dense>
+      <v-toolbar-title dense>
         <slot name='title'></slot>
       </v-toolbar-title>
       <v-spacer></v-spacer>

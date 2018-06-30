@@ -1,7 +1,7 @@
 <template>
-  <v-container fluid fill-height >
+  <v-container fluid fill-height>
     <v-slide-x-transition>
-      <v-layout column align-center justify-center >
+      <v-layout column align-center justify-center>
         <div>404</div>
       </v-layout>
     </v-slide-x-transition>

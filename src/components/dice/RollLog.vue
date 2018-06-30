@@ -1,15 +1,15 @@
 <template>
   <v-expansion-panel>
-    <v-expansion-panel-content  color='secondary' :value='true' >
+    <v-expansion-panel-content color='secondary' :value='true'>
       <div slot='header'>
         <v-toolbar-title>Anteriores</v-toolbar-title>
       </div>
       <v-card>
-        <v-divider ></v-divider>
-        <v-list  class='logs' >
+        <v-divider></v-divider>
+        <v-list class='logs'>
           <template v-for='(line, index) in logs'>
             <div :key='index'>
-              <v-list-tile >
+              <v-list-tile>
                 <v-list-tile-content>
                   <v-list-tile-title>{{ line.title }}</v-list-tile-title>
                   <v-list-tile-sub-title class='text--primary'>{{ line.subtitle }}</v-list-tile-sub-title>
@@ -18,7 +18,7 @@
                   <v-list-tile-action-text>{{ line.total }}</v-list-tile-action-text>
                 </v-list-tile-action>
               </v-list-tile>
-              <v-divider v-if='index < logs.length -1'  ></v-divider>
+              <v-divider v-if='index < logs.length -1'></v-divider>
             </div>
           </template>
         </v-list>

@@ -1,10 +1,8 @@
 <template>
   <v-container fluid grid-list-lg>
+    <selector-menu :filter='filter'></selector-menu>
     <v-layout row wrap>
-      <v-flex xs12>
-        <selector-menu :filter='filter'></selector-menu>
-      </v-flex>
-      <v-flex xs12 sm12 md6 lg4 xl3 v-for='generator in list' :key='generator.id' >
+      <v-flex xs12 sm10 md6 lg4 xl3 v-for='generator in list' :key='generator.id'>
         <list-item :generator='generator'></list-item>
       </v-flex>
     </v-layout>

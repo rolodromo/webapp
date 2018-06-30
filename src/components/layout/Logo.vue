@@ -1,6 +1,6 @@
 <template>
   <div class='logo text-xs-center'>
-    <img  :class='classSize' src='/img/icons/icon-512x512.png' alt='Rolodromo'/>
+    <img :class='classSize' src='/img/icons/icon-512x512.png' alt='Rolodromo'/>
   </div>
 </template>
 <script>
@@ -25,6 +25,7 @@ export default {
   max-width: 30px;
   max-height: 30px;
 }
+
 .size-normal {
   max-width: 90px;
   max-height: 90px;

@@ -16,7 +16,8 @@
   </v-snackbar>
 </template>
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
+
 export default {
   data() {
     return {

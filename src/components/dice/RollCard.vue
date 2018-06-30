@@ -11,7 +11,7 @@
       <div class='subheading'>{{ roll }}</div>
     </v-card-text>
 
-    <v-card-title  class='text-xs-center'>
+    <v-card-title class='text-xs-center'>
       <v-spacer></v-spacer>
       <h1 class='blue--text'>{{ total }}</h1>
       <v-btn icon ripple class='blue lighten-2 white--text' @click='run'>

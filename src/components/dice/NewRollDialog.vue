@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model='status'  max-width='500px'>
+  <v-dialog v-model='status' max-width='500px'>
     <v-card>
       <v-card-title>
         <span class='headline'>Agregar tirada</span>

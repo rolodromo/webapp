@@ -1,16 +1,16 @@
 <template>
   <v-flex fill-height xs12>
-    <v-layout column wrap fill-height  class='white'>
+    <v-layout column wrap fill-height class='white'>
 
-      <v-flex  style='flex-grow: 0;'>
+      <v-flex style='flex-grow: 0;'>
         <v-card flat color='secondary'>
           <v-layout row align-center justify-center style='position: relative'>
             <v-flex xs1 style='max-width: 3em !important;'>
               <v-btn small icon dark @click='$router.back()'>
-                <icon name='arrow-circle-left' scale='2' ></icon>
+                <icon name='arrow-circle-left' scale='2'></icon>
               </v-btn>
             </v-flex>
-            <v-flex >
+            <v-flex>
               <v-card-title class='title white--text pl-2 pr-5'>
                 {{ generator.name }}
               </v-card-title>
@@ -22,7 +22,7 @@
       </v-flex>
 
       <v-flex d-flex style='flex-grow: 0;'>
-        <v-card-text >
+        <v-card-text>
           {{ generator.desc }}
           <v-divider></v-divider>
 

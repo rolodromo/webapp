@@ -1,7 +1,7 @@
 <template>
-  <v-container fluid class='soundboard' grid-list-lg>
+  <v-container fluid grid-list-md>
     <v-layout row wrap justify-space-between>
-      <v-flex xs12 md6 lg4  v-for='(sound, i) in activeSounds' :key='i'>
+      <v-flex xs12 md6 lg4 v-for='(sound, i) in activeSounds' :key='i'>
         <audio-player :name='sound.name' :sources='[sound.src]' :loop='true'/>
       </v-flex>
     </v-layout>
