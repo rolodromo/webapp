@@ -6,6 +6,14 @@ export const getUserInfo = async () => {
   return { token, profile }
 }
 
+export const getReturnUrl = async () => {
+  return localforage.getItem('returnUrl')
+}
+
+export const saveReturnUrl = async url => {
+  return localforage.setItem('returnUrl', url)
+}
+
 export const saveProfile = async response => {
   await localforage.setItem('token', {
     accessToken: response.accessToken,
@@ -20,7 +28,9 @@ export const saveIdToken = async idToken => {
 }
 
 export const logout = async () => {
-  await localforage.removeItem('id_token')
-  await localforage.removeItem('token')
-  await localforage.removeItem('profile')
+  return Promise.all([
+    localforage.removeItem('id_token'),
+    localforage.removeItem('token'),
+    localforage.removeItem('profile')
+  ])
 }

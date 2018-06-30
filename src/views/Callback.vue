@@ -3,15 +3,15 @@
   </div>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import { parseCredentials } from '@/modules/auth/auth0'
 
 export default {
   name: 'Callback',
   computed: {
-    ...mapState({
-      auth: 'auth/user'
+    ...mapGetters({
+      returnUrl: 'auth/returnUrl'
     })
   },
   mounted() {
@@ -20,7 +20,6 @@ export default {
       console.log('Auth0 token:', credentials)
       console.log('Credentials from URL', credentials)
       await this.saveCredentials(credentials)
-      console.log('Login complete. Redirecting...')
       this.redirect()
     })
   },
@@ -29,7 +28,8 @@ export default {
       saveCredentials: 'auth/saveCredentials'
     }),
     redirect() {
-      this.$router.push('/')
+      console.log('Login complete. Redirecting...', this.returnUrl)
+      this.$router.push(this.returnUrl)
     }
   }
 }
