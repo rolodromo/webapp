@@ -1,14 +1,7 @@
 <template>
   <v-app id='rolodromo'>
-    <v-navigation-drawer
-      app
-      clipped
-      v-model='drawer'
-      class='grey lighten-4'
-    >
-      <rol-menu />
-    </v-navigation-drawer>
-    <v-toolbar color='primary white--text' app fixed  dense justify-center align-center>
+    <rol-menu :drawer.sync='drawer' />
+    <v-toolbar color='primary white--text' app fixed clipped-left dense justify-center align-center>
       <v-toolbar-side-icon color='white--text' @click.native='drawer = !drawer'>
         <logo size='small'/>
       </v-toolbar-side-icon>
