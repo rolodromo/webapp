@@ -9,6 +9,7 @@ import * as storage from '../../modules/storage/auth'
 
 const DEFAULT_STATE = {
   returnUrl: '/',
+  isAdmin: false,
   user: {
     profile: {
       name: 'Anonimo',
@@ -24,9 +25,6 @@ const getters = {
   isLogged(state) {
     return !!(state.user && state.user.token)
   },
-  isAdmin(state) {
-    return get(state.user, 'profile.isAdmin', false)
-  },
   userId(state) {
     return get(state.user, 'profile.id', -1)
   },
@@ -37,6 +35,7 @@ const getters = {
 const mutations = {
   setUserInfo(state, { user, returnUrl }) {
     state.user = user
+    state.isAdmin = get(user, 'profile.isAdmin', false)
     state.returnUrl = returnUrl
   }
 }
@@ -59,7 +58,7 @@ const actions = {
     const returnUrl = await storage.getReturnUrl()
     let user = await storage.getUserInfo()
     let accessToken = get(user, 'token.accessToken')
-    if (storage.isTokenExpired(accessToken)) {
+    if (accessToken && storage.isTokenExpired(accessToken)) {
       const refreshToken = get(user, 'token.refreshToken')
       user = await auth.refresh(refreshToken)
       await storage.saveProfile(user)

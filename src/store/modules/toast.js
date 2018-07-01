@@ -39,10 +39,16 @@ export const mutations = {
   }
 }
 
+const actions = {
+  error({ commit }, message) {
+    commit('error', message)
+  }
+}
+
 export default {
   namespaced: true,
   getters: {},
-  actions: {},
+  actions,
   state,
   mutations
 }

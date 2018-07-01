@@ -18,19 +18,28 @@
             </v-btn>
 
             <v-list>
-              <v-list-tile @click='reset(generator)'>
+              <v-list-tile @click='resetDefault' v-if='!isNew'>
                 <v-list-tile-avatar>
                   <v-icon color='secondary'>restore</v-icon>
                 </v-list-tile-avatar>
                 <v-list-tile-title>Reiniciar</v-list-tile-title>
               </v-list-tile>
-              <v-list-tile>
-                <v-list-tile-avatar>
-                  <v-icon color='error'>delete_forever</v-icon>
-                </v-list-tile-avatar>
-                <v-list-tile-title>Borrar</v-list-tile-title>
-              </v-list-tile>
-              <v-list-tile>
+
+              <delete-dialog
+                v-if='isLogged'
+                title='Borrar generador?'
+                description='Esta accion borrará el generador de forma permanente. No se puede deshacer.'
+                :disabled='!canDelete'
+                @confirm='remove' >
+                <v-list-tile slot='activator' @click='' :disabled='!canDelete'>
+                  <v-list-tile-avatar>
+                    <v-icon color='error'>delete_forever</v-icon>
+                  </v-list-tile-avatar>
+                  <v-list-tile-title>Borrar</v-list-tile-title>
+                </v-list-tile>
+              </delete-dialog>
+
+              <v-list-tile @click='save' :disabled='!canEdit'>
                 <v-list-tile-avatar>
                   <v-icon color='success'>save_alt</v-icon>
                 </v-list-tile-avatar>
@@ -77,8 +86,9 @@
             <v-tab-item>
               <v-card
                 flat
-                class='white pa-4 ma-0'
+                class='white pa-2 ma-0'
                 :height='small ? "70.5vh" : "81.3vh"'
+                style='overflow-y: auto;'
               >
                 <v-text-field
                   v-model='name'
@@ -94,6 +104,37 @@
                   v-model='desc'
                 >
                 </v-textarea>
+
+
+                <v-divider></v-divider>
+                <v-switch v-model='listed' label='Visible'></v-switch>
+
+                <v-divider></v-divider>
+
+                <!-- TABLAS EXTERNAS -->
+                <v-subheader>Tablas externas</v-subheader>
+                <v-list>
+                  <template v-for='(id, table) in externalTables'>
+                    <v-list-tile :key='id'>
+
+                      <v-list-tile-content>
+                        <v-list-tile-title>{{ table }}</v-list-tile-title>
+                        <v-list-tile-sub-title>{{ id }}</v-list-tile-sub-title>
+
+                      </v-list-tile-content>
+                      <v-list-tile-action class='px-0 mx-0'>
+                        <v-btn small icon dark color='red'>
+                          <v-icon>delete_forever</v-icon>
+                        </v-btn>
+                      </v-list-tile-action>
+                    </v-list-tile>
+                    <v-divider></v-divider>
+                  </template>
+                </v-list>
+                <v-btn round block dark small color='success' @click='addExternal'>
+                  <v-icon>add</v-icon>
+                  Agregar
+                </v-btn>
 
               </v-card>
             </v-tab-item>
@@ -142,7 +183,9 @@
                 </div>
               </quill-editor>
             </v-tab-item>
-            <v-tab-item id='generator-test' lazy >
+
+            <!-- GENERATOR -->
+            <v-tab-item id='generator-test' lazy>
               <v-card
                 flat class='transparent ql-container pa-0 ma-0 text-container'
                 :height='small ? "70.5vh" : "81.3vh"'
@@ -161,14 +204,15 @@
       </v-flex>
     </v-layout>
   </v-container>
-
 </template>
 
 <script>
 import rpgen from '@rolodromo/rpgen'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import GenerateButton from './GenerateButton.vue'
 import ViewerToolbar from './ViewerToolbar.vue'
+
+const TEST_GENERATOR_TAB = 3
 
 export default {
   name: 'GeneratorEditor',
@@ -185,10 +229,16 @@ export default {
     return {
       name: '',
       desc: '',
-      tpls: '',
-      editorTpls: '',
-      tables: '',
+      authorId: null,
+      tpls: '[tu_tabla]',
+      editorTpls: '[tu_tabla]',
+      tables: ';tu_tabla\nlinea 1\nlinea 2\nlinea 3',
+      externalTables: null,
+      listed: false,
       tab: null,
+      isNew: true,
+      canDelete: false,
+      canEdit: false,
       exampleText: '',
       testGenerator: null,
       editorOption: {
@@ -199,7 +249,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('auth', ['isLogged']),
+    ...mapGetters('auth', ['isLogged', 'isAdmin', 'userId']),
     editor() {
       return this.$refs.quillEditor.quill
     },
@@ -211,38 +261,116 @@ export default {
     }
   },
   watch: {
+    isAdmin() {
+      this.calcPerms()
+    },
     generator(gen) {
-      console.log('CHANGED', gen)
       this.reset(gen)
+      this.calcPerms()
     },
     tpls(newVal) {
       this.editorTpls = newVal.replace(/;@tpl\|main\n/, '')
     },
     tab(index) {
-      if (index === 3) {
+      console.log('perms', this.canEdit, this.canDelete, this.isNew, this.isLogged, this.isAdmin, this.userId, this.authorId)
+      if (index === TEST_GENERATOR_TAB) {
+        this.makeTestGenerator()
+      }
+    }
+  },
+  mounted() {
+    if (this.generator) {
+      this.reset(this.generator)
+    }
+  },
+  methods: {
+    ...mapActions({
+      saveGenerator: 'generators/save',
+      removeGenerator: 'generators/remove',
+      alert: 'toast/error'
+    }),
+    makeTestGenerator() {
+      let children = ''
+      if (this.children) {
         const childrenNames = Object.keys(this.children)
-        let children = ''
         if (childrenNames.length) {
           children = childrenNames.reduce((str, key) => {
             const data = this.generator.children[key]
             return `${str}\n\n${data.tables}`
           }, '')
         }
-        this.testGenerator = rpgen.generator.create(`;@tpl|main\n${this.tpls}\n\n${this.tables}\n\n${children}`)
-        this.generate()
       }
-    }
-  },
-  created() {
-    console.log('CREATED', this.generator)
-  },
-  methods: {
+      this.testGenerator = rpgen.generator.create(`;@tpl|main\n${this.tpls}\n\n${this.tables}\n\n${children}`)
+      this.generate()
+    },
+    addExternal() {
+      console.log('// TODO: Add external table')
+    },
     reset(gen) {
+      this.isNew = !gen.id
+
+      if (!gen.name) return
+
       this.name = gen.name
       this.desc = gen.desc
+      this.authorId = gen.author.id
       this.tpls = gen.data.tpls
       this.tables = gen.data.tables
       this.children = gen.children
+      this.externalTables = gen.data.alias
+      this.listed = !!gen.listed
+      this.calcPerms()
+    },
+    calcPerms() {
+      this.canEdit = this.isAdmin || this.isNew || this.userId === this.authorId
+      this.canDelete = !this.isNew && (this.isAdmin || this.userId === this.authorId)
+    },
+    resetDefault() {
+      this.reset(this.generator)
+      this.makeTestGenerator()
+    },
+    checkMeta() {
+      if (!this.name) {
+        this.alert('Titulo invalido')
+        this.tab = 0
+        return false
+      }
+      return true
+    },
+    async save() {
+      if (!this.checkMeta()) return
+
+      const { name, desc, tables, tpls, listed, generator } = this
+      const saved = await this.saveGenerator({
+        ...generator,
+        name,
+        desc,
+        listed,
+        data: {
+          tables,
+          tpls
+        }
+      })
+      if (saved) {
+        this.$router.replace({
+          name: 'generator-edit',
+          params: {
+            slug: saved.slug,
+            id: saved.id
+          }
+        })
+      }
+    },
+    async remove() {
+      let removed = true
+      if (!this.isNew) {
+        removed = await this.removeGenerator(this.generator.id)
+      }
+      if (removed) {
+        this.$router.replace({
+          name: 'generators'
+        })
+      }
     },
     generate() {
       this.exampleText = this.testGenerator.generate()

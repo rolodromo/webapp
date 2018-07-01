@@ -29,7 +29,7 @@ export default {
     }),
     redirect() {
       console.log('Login complete. Redirecting...', this.returnUrl)
-      this.$router.push(this.returnUrl)
+      this.$router.replace(this.returnUrl)
     }
   }
 }

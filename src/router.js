@@ -81,6 +81,12 @@ export default new Router({
       props: true
     },
     {
+      path: '/generadores/nuevo',
+      name: 'generator-new',
+      component: GeneratorEdit,
+      props: true
+    },
+    {
       path: '/generadores/:slug/:id/edit',
       name: 'generator-edit',
       component: GeneratorEdit,

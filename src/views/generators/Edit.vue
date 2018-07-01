@@ -30,7 +30,9 @@ export default {
     ...mapGetters('auth', ['isLogged'])
   },
   created() {
-    this.fetchData()
+    if (this.id) {
+      this.fetchData()
+    }
   },
   methods: {
     ...mapActions({

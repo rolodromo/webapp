@@ -1,4 +1,4 @@
-import { get } from 'lodash'
+import { get, pick } from 'lodash'
 import * as api from '../../modules/api/generators'
 import * as apiMe from '../../modules/api/me'
 
@@ -43,6 +43,44 @@ export const actions = {
     const generator = await api.loadGenerator(id)
     commit('setGenerator', generator)
     return generator
+  },
+  async save({ commit }, payload) {
+    let newData
+
+    const data = {
+      ...pick(payload, ['name', 'desc']),
+      listed: payload.listed,
+      data: {
+        ...pick(payload.data, ['tpls', 'tables', 'alias'])
+      }
+    }
+
+    try {
+      if (!payload.id) {
+        newData = await api.createGenerator(data)
+      } else {
+        newData = await api.updateGenerator(payload.id, data)
+      }
+      commit('setGenerator', {
+        ...newData
+      })
+      commit('toast/success', 'Guardado con éxito', { root: true })
+      return newData
+    } catch (e) {
+      console.log(e)
+      commit('toast/error', 'Error al guardar', { root: true })
+    }
+  },
+  async remove({ state, commit }) {
+    try {
+      await api.deleteGenerator(state.current.id)
+      commit('toast/success', 'Eliminado con éxito', { root: true })
+      return true
+    } catch (e) {
+      console.log(e)
+      commit('toast/error', 'Error al eliminar', { root: true })
+      return false
+    }
   },
   async loadList({ commit }, type) {
     let list
