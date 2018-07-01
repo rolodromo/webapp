@@ -16,3 +16,14 @@ export const login = authToken => {
     }
   }).then(res => res.data)
 }
+
+export const refresh = refreshToken => {
+  return AUTH({
+    method: 'POST',
+    url: '/auth/token/refresh',
+    json: true,
+    headers: {
+      Authorization: `Bearer ${refreshToken}`
+    }
+  }).then(res => res.data)
+}

@@ -47,7 +47,6 @@ const actions = {
     auth0.startLogin()
   },
   async saveCredentials({ dispatch }, authResult) {
-    await storage.saveIdToken(authResult.idToken)
     const profile = await auth.login(authResult.accessToken)
     await storage.saveProfile(profile)
     return dispatch('loadUserInfo')
@@ -58,9 +57,16 @@ const actions = {
   },
   async loadUserInfo({ commit }) {
     const returnUrl = await storage.getReturnUrl()
-    const user = await storage.getUserInfo()
-    generators.setAuthToken(get(user, 'token.accessToken'))
-    me.setAuthToken(get(user, 'token.accessToken'))
+    let user = await storage.getUserInfo()
+    let accessToken = get(user, 'token.accessToken')
+    if (storage.isTokenExpired(accessToken)) {
+      const refreshToken = get(user, 'token.refreshToken')
+      user = await auth.refresh(refreshToken)
+      await storage.saveProfile(user)
+      accessToken = user.accessToken
+    }
+    generators.setAuthToken(accessToken)
+    me.setAuthToken(accessToken)
     commit('setUserInfo', { user, returnUrl })
   }
 }
