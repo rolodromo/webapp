@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+import store from './store'
 import Home from './views/Home.vue'
 import Dice from './views/Dice.vue'
 import Generators from './views/generators/Index.vue'
@@ -13,7 +15,7 @@ import NotFound from './views/NotFound.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -62,6 +64,9 @@ export default new Router({
           component: GeneratorsList,
           props: {
             filter: 'liked'
+          },
+          meta: {
+            requiresAuth: true
           }
         },
         {
@@ -70,6 +75,23 @@ export default new Router({
           component: GeneratorsList,
           props: {
             filter: 'owned'
+          },
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'nuevo',
+          name: 'generator-new',
+          component: GeneratorEdit,
+          props: true,
+          meta: {
+            requiresAuth: true
+          },
+          beforeEnter: async (to, from, next) => {
+            await store.dispatch('generators/setNew')
+            await store.dispatch('generators/loadTableNames')
+            next()
           }
         }
       ]
@@ -78,19 +100,25 @@ export default new Router({
       path: '/generadores/:slug/:id',
       name: 'generator-detail',
       component: GeneratorDetail,
-      props: true
-    },
-    {
-      path: '/generadores/nuevo',
-      name: 'generator-new',
-      component: GeneratorEdit,
-      props: true
+      props: true,
+      beforeEnter: async (to, from, next) => {
+        await store.dispatch('generators/load', to.params.id)
+        next()
+      }
     },
     {
       path: '/generadores/:slug/:id/edit',
       name: 'generator-edit',
       component: GeneratorEdit,
-      props: true
+      props: true,
+      beforeEnter: async (to, from, next) => {
+        await store.dispatch('generators/load', to.params.id)
+        await store.dispatch('generators/loadTableNames')
+        next()
+      },
+      meta: {
+        auth: true
+      }
     },
     {
       path: '/callback',
@@ -102,3 +130,14 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach(async (to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth && !store.getters['auth/isLogged'])) {
+    store.dispatch('auth/startLogin', to.path)
+    next(false)
+    return
+  }
+  next()
+})
+
+export default router

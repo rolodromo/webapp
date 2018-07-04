@@ -20,7 +20,6 @@
 
 <script>
 import RolMenu from '@/components/layout/Menu.vue'
-import { mapActions } from 'vuex'
 
 export default {
   name: 'App',
@@ -33,12 +32,6 @@ export default {
       drawer: false,
       title: 'Rolodromo.com'
     }
-  },
-  created() {
-    this.loadUserInfo()
-  },
-  methods: {
-    ...mapActions('auth', ['loadUserInfo'])
   }
 }
 </script>

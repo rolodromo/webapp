@@ -28,6 +28,9 @@ const getters = {
   userId(state) {
     return get(state.user, 'profile.id', -1)
   },
+  isAdmin(state) {
+    return !!state.isAdmin
+  },
   returnUrl(state) {
     return state.returnUrl || '/'
   }

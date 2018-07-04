@@ -69,12 +69,8 @@ export default {
       }
     }
   },
-  watch: {
-    generator() {
-      if (this.engine) {
-        this.generate()
-      }
-    }
+  mounted() {
+    this.generate()
   },
   methods: {
     generate() {

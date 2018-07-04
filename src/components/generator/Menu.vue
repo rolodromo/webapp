@@ -1,5 +1,6 @@
 <template>
   <v-layout justify-space-around>
+
     <v-flex align-content-center>
       <v-btn
         dark
@@ -55,6 +56,20 @@
       >
         <v-icon :left='blockMode' color='indigo'>face</v-icon>
         <span class='hidden-sm-and-down'>Propios</span>
+      </v-btn>
+    </v-flex>
+
+    <v-flex align-content-center>
+      <v-btn
+        dark
+        :block='blockMode'
+        :icon='iconMode'
+        :class='all?"elevation-1":""'
+        :color='all ? "red lighten-2" : "red lighten-1"'
+        :to='{ name: "generator-new" }'
+      >
+        <v-icon :left='blockMode'>add</v-icon>
+        <span class='hidden-sm-and-down'>NUEVO</span>
       </v-btn>
     </v-flex>
 

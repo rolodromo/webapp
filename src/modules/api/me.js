@@ -9,6 +9,8 @@ const ME = axios.create({
 
 export const loadOwnGenerators = () => ME.get(`/tables`).then(res => res.data)
 
+export const loadFavoriteGenerators = () => ME.get(`/tables/favorites`).then(res => res.data)
+
 export const setAuthToken = authToken => {
   if (!authToken) {
     unset(ME.defaults.headers.common, 'Authorization')

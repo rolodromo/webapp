@@ -11,9 +11,12 @@ import './registerServiceWorker'
 sync(store, router)
 
 Vue.config.productionTip = false
+Vue.config.devtools = true
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+store.dispatch('auth/loadUserInfo').then(() => {
+  new Vue({
+    router,
+    store,
+    render: h => h(App)
+  }).$mount('#app')
+})

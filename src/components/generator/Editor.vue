@@ -90,52 +90,56 @@
                 :height='small ? "70.5vh" : "81.3vh"'
                 style='overflow-y: auto;'
               >
-                <v-text-field
-                  v-model='name'
-                  label='Nombre'
-                  required
-                ></v-text-field>
+                <v-card-text>
+                  <v-text-field
+                    v-model='name'
+                    label='Nombre'
+                    required
+                  ></v-text-field>
 
-                <v-textarea
-                  auto-grow
-                  hide-details
-                  rows='3'
-                  label='Descripción'
-                  v-model='desc'
-                >
-                </v-textarea>
+                  <v-textarea
+                    auto-grow
+                    hide-details
+                    rows='3'
+                    label='Descripción'
+                    v-model='desc'
+                  >
+                  </v-textarea>
 
 
-                <v-divider></v-divider>
-                <v-switch v-model='listed' label='Visible'></v-switch>
+                  <v-divider></v-divider>
+                  <v-switch v-model='listed' label='Visible'></v-switch>
 
-                <v-divider></v-divider>
+                  <v-divider></v-divider>
 
-                <!-- TABLAS EXTERNAS -->
-                <v-subheader>Tablas externas</v-subheader>
-                <v-list>
-                  <template v-for='(id, table) in externalTables'>
-                    <v-list-tile :key='id'>
+                  <!-- TABLAS EXTERNAS -->
+                  <v-subheader>Tablas externas</v-subheader>
+                  <v-list>
+                    <template v-for='(id, table) in externalTables'>
+                      <v-list-tile :key='`${table}-${id}`'>
 
-                      <v-list-tile-content>
-                        <v-list-tile-title>{{ table }}</v-list-tile-title>
-                        <v-list-tile-sub-title>{{ id }}</v-list-tile-sub-title>
+                        <v-list-tile-content>
+                          <v-list-tile-title>{{ table }}</v-list-tile-title>
+                          <v-list-tile-sub-title>{{ id }}</v-list-tile-sub-title>
 
-                      </v-list-tile-content>
-                      <v-list-tile-action class='px-0 mx-0'>
-                        <v-btn small icon dark color='red'>
-                          <v-icon>delete_forever</v-icon>
-                        </v-btn>
-                      </v-list-tile-action>
-                    </v-list-tile>
-                    <v-divider></v-divider>
-                  </template>
-                </v-list>
-                <v-btn round block dark small color='success' @click='addExternal'>
-                  <v-icon>add</v-icon>
-                  Agregar
-                </v-btn>
-
+                        </v-list-tile-content>
+                        <v-list-tile-action class='px-0 mx-0'>
+                          <v-btn small icon dark color='red' @click='removeAlias(table)'>
+                            <v-icon>delete_forever</v-icon>
+                          </v-btn>
+                        </v-list-tile-action>
+                      </v-list-tile>
+                      <v-divider :key='`${table}-${id}-div`'></v-divider>
+                    </template>
+                  </v-list>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn round dark small color='success' @click='externalDialog = true'>
+                    <v-icon>add</v-icon>
+                    Agregar
+                  </v-btn>
+                </v-card-actions>
               </v-card>
             </v-tab-item>
 
@@ -202,13 +206,43 @@
         </v-card>
 
       </v-flex>
+      <v-dialog v-model='externalDialog' persistent>
+        <v-card>
+          <v-card-title>
+            <span class='headline'>Tabla externa</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container grid-list-md>
+              <v-layout wrap>
+                <v-flex xs12>
+                  <v-text-field v-model='newAliasName' label='Alias' required></v-text-field>
+                </v-flex>
+                <v-flex xs12>
+                  <v-autocomplete
+                    :items='listTables'
+                    v-model='newTable'
+                    item-text='name'
+                    item-value='id'
+                    label='Tablas'
+                  ></v-autocomplete>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn flat @click.native='externalDialog = false'>Cancelar</v-btn>
+            <v-btn flat @click.native='addExternal'>Agregar</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-layout>
   </v-container>
 </template>
 
 <script>
 import rpgen from '@rolodromo/rpgen'
-import { mapActions, mapGetters } from 'vuex'
+import { mapMutations, mapState, mapActions, mapGetters } from 'vuex'
 import GenerateButton from './GenerateButton.vue'
 import ViewerToolbar from './ViewerToolbar.vue'
 
@@ -241,6 +275,9 @@ export default {
       canEdit: false,
       exampleText: '',
       testGenerator: null,
+      newTable: '',
+      newAliasName: '',
+      externalDialog: false,
       editorOption: {
         modules: {
           toolbar: '#toolbar'
@@ -250,6 +287,9 @@ export default {
   },
   computed: {
     ...mapGetters('auth', ['isLogged', 'isAdmin', 'userId']),
+    ...mapState('generators', {
+      listTables: 'tableNames'
+    }),
     editor() {
       return this.$refs.quillEditor.quill
     },
@@ -261,33 +301,28 @@ export default {
     }
   },
   watch: {
-    isAdmin() {
-      this.calcPerms()
-    },
-    generator(gen) {
-      this.reset(gen)
-      this.calcPerms()
-    },
     tpls(newVal) {
       this.editorTpls = newVal.replace(/;@tpl\|main\n/, '')
     },
     tab(index) {
-      console.log('perms', this.canEdit, this.canDelete, this.isNew, this.isLogged, this.isAdmin, this.userId, this.authorId)
       if (index === TEST_GENERATOR_TAB) {
         this.makeTestGenerator()
       }
     }
   },
-  mounted() {
-    if (this.generator) {
-      this.reset(this.generator)
-    }
+  created() {
+    this.calcPerms()
+    this.reset()
   },
   methods: {
     ...mapActions({
       saveGenerator: 'generators/save',
       removeGenerator: 'generators/remove',
+      loadExternal: 'generators/loadExternal',
       alert: 'toast/error'
+    }),
+    ...mapMutations({
+      removeExternal: 'generators/removeExternal'
     }),
     makeTestGenerator() {
       let children = ''
@@ -303,11 +338,26 @@ export default {
       this.testGenerator = rpgen.generator.create(`;@tpl|main\n${this.tpls}\n\n${this.tables}\n\n${children}`)
       this.generate()
     },
-    addExternal() {
-      console.log('// TODO: Add external table')
+    async addExternal() {
+      await this.loadExternal({
+        id: this.newTable,
+        name: this.newAliasName
+      })
+      this.newTable = {}
+      this.newAliasName = ''
+      this.externalDialog = false
+      this.externalTables = this.generator.data.alias
+      this.children = this.generator.children
     },
-    reset(gen) {
-      this.isNew = !gen.id
+    removeAlias(alias) {
+      this.removeExternal(alias)
+      this.$nextTick(() => {
+        this.externalTables = this.generator.data.alias
+        this.children = this.generator.children
+      })
+    },
+    reset() {
+      const gen = this.generator
 
       if (!gen.name) return
 
@@ -319,14 +369,14 @@ export default {
       this.children = gen.children
       this.externalTables = gen.data.alias
       this.listed = !!gen.listed
-      this.calcPerms()
     },
     calcPerms() {
+      this.isNew = !this.generator.id
       this.canEdit = this.isAdmin || this.isNew || this.userId === this.authorId
       this.canDelete = !this.isNew && (this.isAdmin || this.userId === this.authorId)
     },
     resetDefault() {
-      this.reset(this.generator)
+      this.reset()
       this.makeTestGenerator()
     },
     checkMeta() {
@@ -340,13 +390,14 @@ export default {
     async save() {
       if (!this.checkMeta()) return
 
-      const { name, desc, tables, tpls, listed, generator } = this
+      const { name, desc, tables, externalTables, tpls, listed, generator } = this
       const saved = await this.saveGenerator({
         ...generator,
         name,
         desc,
         listed,
         data: {
+          alias: externalTables,
           tables,
           tpls
         }
