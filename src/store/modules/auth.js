@@ -26,7 +26,7 @@ const getters = {
     return !!(state.user && state.user.token)
   },
   userId(state) {
-    return get(state.user, 'profile.id', -1)
+    return get(state.user, 'profile.id', '')
   },
   isAdmin(state) {
     return !!state.isAdmin

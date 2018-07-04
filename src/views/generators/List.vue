@@ -21,8 +21,8 @@ export default {
     filter: String
   },
   computed: {
-    ...mapState({
-      list: state => state.generators.list
+    ...mapState('generators', {
+      list: 'list'
     })
   },
   watch: {

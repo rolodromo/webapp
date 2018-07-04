@@ -1,6 +1,7 @@
-import { pick, pickBy, get } from 'lodash'
+import { get, pick, pickBy, findIndex } from 'lodash'
 import * as api from '../../modules/api/generators'
 import * as apiMe from '../../modules/api/me'
+import Vue from 'vue'
 
 const EMPTY_GENERATOR = {
   data: {}
@@ -8,11 +9,26 @@ const EMPTY_GENERATOR = {
 export const state = {
   current: EMPTY_GENERATOR,
   tableNames: [],
+  listFilter: 'all',
   list: []
 }
 export const mutations = {
-  setList(state, list) {
+  setList(state, { type, list }) {
+    state.listFilter = type
     state.list = list
+  },
+  addLike(state, { id, userId }) {
+    const fav = state.list.filter(item => item.id === id)[0]
+    Vue.set(fav, 'likes', (fav.likes || []).concat([userId]))
+  },
+  removeLike(state, { id, userId }) {
+    const favIndex = findIndex(state.list, { id })
+    if (state.listFilter === 'liked') {
+      state.list.splice(favIndex, 1)
+      return
+    }
+    const fav = state.list[favIndex]
+    Vue.set(fav, 'likes', (fav.likes || []).filter(id => id !== userId))
   },
   setGenerator(state, generator) {
     state.current = generator.name ? generator : EMPTY_GENERATOR
@@ -116,7 +132,7 @@ export const actions = {
       default:
         list = await api.loadAll()
     }
-    commit('setList', list)
+    commit('setList', { type, list })
   },
   async loadTableNames({ state, commit }) {
     if (state.tableNames.length) {
@@ -133,6 +149,14 @@ export const actions = {
       content: { ...pick(external.data, ['tpls', 'tables']) }
     })
     return external
+  },
+  async addLike({ commit }, payload) {
+    await api.addLike(payload.id)
+    commit('addLike', payload)
+  },
+  async removeLike({ commit }, payload) {
+    await api.removeLike(payload.id)
+    commit('removeLike', payload)
   }
 }
 export default {

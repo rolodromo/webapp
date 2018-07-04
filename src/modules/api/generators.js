@@ -32,3 +32,6 @@ export const createGenerator = data => {
 export const updateGenerator = (generatorId, data) => {
   return HTTP.put(`/table/${generatorId}`, data).then(res => res.data)
 }
+
+export const addLike = generatorId => HTTP.post(`/table/${generatorId}/like`).then(res => res.data)
+export const removeLike = generatorId => HTTP.delete(`/table/${generatorId}/like`).then(res => res.data)
