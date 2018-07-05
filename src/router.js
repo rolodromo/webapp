@@ -90,7 +90,7 @@ const router = new Router({
           },
           beforeEnter: async (to, from, next) => {
             await store.dispatch('generators/setNew')
-            await store.dispatch('generators/loadTableNames')
+            await store.dispatch('generators/loadGeneratorList')
             next()
           }
         }
@@ -113,7 +113,7 @@ const router = new Router({
       props: true,
       beforeEnter: async (to, from, next) => {
         await store.dispatch('generators/load', to.params.id)
-        await store.dispatch('generators/loadTableNames')
+        await store.dispatch('generators/loadGeneratorList')
         next()
       },
       meta: {

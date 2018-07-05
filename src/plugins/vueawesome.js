@@ -7,6 +7,7 @@ import 'vue-awesome/icons/sign-out-alt'
 import 'vue-awesome/icons/sign-in-alt'
 import 'vue-awesome/icons/sync-alt'
 import 'vue-awesome/icons/minus'
+import 'vue-awesome/icons/list'
 
 import Icon from 'vue-awesome/components/Icon'
 

@@ -8,7 +8,7 @@ const EMPTY_GENERATOR = {
 }
 export const state = {
   current: EMPTY_GENERATOR,
-  tableNames: [],
+  generatorList: [],
   listFilter: 'all',
   list: []
 }
@@ -33,8 +33,8 @@ export const mutations = {
   setGenerator(state, generator) {
     state.current = generator.name ? generator : EMPTY_GENERATOR
   },
-  setTableNames(state, names) {
-    state.tableNames = names
+  setGeneratorList(state, list) {
+    state.generatorList = list
   },
   addExternal(state, payload) {
     state.current.data = {
@@ -134,12 +134,12 @@ export const actions = {
     }
     commit('setList', { type, list })
   },
-  async loadTableNames({ state, commit }) {
-    if (state.tableNames.length) {
-      return state.tableNames
+  async loadGeneratorList({ state, commit }) {
+    if (state.generatorList.length) {
+      return state.generatorList
     }
     const names = await api.loadNames()
-    commit('setTableNames', names)
+    commit('setGeneratorList', names)
   },
   async loadExternal({ commit }, payload) {
     const external = await api.loadGenerator(payload.id)

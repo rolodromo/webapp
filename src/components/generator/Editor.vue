@@ -179,11 +179,13 @@
                     <option selected></option>
                     <option value='large'></option>
                   </select>
-                  <button class='ql-link'></button>
-                  <button @click='addHr'>
-                    <icon name='minus'></icon>
-                  </button>
                   <button class='ql-clean'></button>
+                  <button class='ql' @click='addHr'>
+                    <icon name='minus' scale='1.15'></icon>
+                  </button>
+                  <button @click='pickTable = true'>
+                    <icon name='list' scale='1.15'></icon>
+                  </button>
                 </div>
               </quill-editor>
             </v-tab-item>
@@ -206,6 +208,33 @@
         </v-card>
 
       </v-flex>
+
+      <!-- TABLE SELECTOR -->
+      <v-dialog v-model='pickTable' scrollable  width='70%' >
+        <v-card>
+          <v-card-title>
+            <span class='headline'>Insertar tabla</span>
+          </v-card-title>
+          <v-card-text style='max-height: 50vh'>
+            <v-list >
+              <template v-for='(name, idx) in tableNames' >
+                <v-list-tile
+                  :key='`${idx}-line`'
+                  @click='addTable(name)'
+                >
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{name}}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+                <v-divider :key='`${idx}-div`'></v-divider>
+              </template>
+            </v-list>
+
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+
+      <!-- EXTERNAL TABLE -->
       <v-dialog v-model='externalDialog' persistent>
         <v-card>
           <v-card-title>
@@ -219,7 +248,7 @@
                 </v-flex>
                 <v-flex xs12>
                   <v-autocomplete
-                    :items='listTables'
+                    :items='generatorList'
                     v-model='newTable'
                     item-text='name'
                     item-value='id'
@@ -246,6 +275,7 @@ import { mapMutations, mapState, mapActions, mapGetters } from 'vuex'
 import GenerateButton from './GenerateButton.vue'
 import ViewerToolbar from './ViewerToolbar.vue'
 
+const EDITOR_TAB = 2
 const TEST_GENERATOR_TAB = 3
 
 export default {
@@ -278,6 +308,8 @@ export default {
       newTable: '',
       newAliasName: '',
       externalDialog: false,
+      pickTable: false,
+      tableNames: [],
       editorOption: {
         modules: {
           toolbar: '#toolbar'
@@ -288,7 +320,7 @@ export default {
   computed: {
     ...mapGetters('auth', ['isLogged', 'isAdmin', 'userId']),
     ...mapState('generators', {
-      listTables: 'tableNames'
+      generatorList: 'generatorList'
     }),
     editor() {
       return this.$refs.quillEditor.quill
@@ -308,6 +340,9 @@ export default {
       if (index === TEST_GENERATOR_TAB) {
         this.makeTestGenerator()
       }
+      if (index === EDITOR_TAB) {
+        this.tableNames = this.extractTableNames(this.generator)
+      }
     }
   },
   created() {
@@ -324,6 +359,18 @@ export default {
     ...mapMutations({
       removeExternal: 'generators/removeExternal'
     }),
+    getTableNames(tables) {
+      return `\n${tables}`.match(/\n;([^\n])+\n/gm).map(name => name.replace(/;/, '').trim())
+    },
+    extractTableNames(generator) {
+      let names = this.getTableNames(generator.data.tables)
+      const scopes = Object.keys(generator.children)
+
+      names = scopes.reduce((all, scope) => {
+        return all.concat(this.getTableNames(generator.children[scope].tables).map(name => `${scope}.${name}`))
+      }, names)
+      return names
+    },
     makeTestGenerator() {
       let children = ''
       if (this.children) {
@@ -431,6 +478,13 @@ export default {
       if (range) {
         this.editor.insertEmbed(range.index, 'divider', '', 'user')
       }
+    },
+    addTable(name) {
+      const range = this.editor.getSelection()
+      if (range) {
+        this.editor.insertText(range.index, `[${name}]`, '', 'user')
+      }
+      this.pickTable = false
     },
     onEditorChange(e) {
       this.tpls = `;@tpl|main\n${e.html}`
