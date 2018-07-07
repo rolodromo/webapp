@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import auth from './modules/auth'
 import generators from './modules/generators'
 import toast from './modules/toast'
+import soundboard from './modules/soundboard'
 
 Vue.use(Vuex)
 
@@ -11,7 +12,8 @@ const store = new Vuex.Store({
   modules: {
     auth,
     generators,
-    toast
+    toast,
+    soundboard
   }
 })
 

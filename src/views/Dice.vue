@@ -13,7 +13,7 @@
             <v-icon dark>add</v-icon>
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn lat outline icon @click='sound = !sound'>
+          <v-btn flat outline icon @click='sound = !sound'>
             <v-icon>{{ sound ? 'record_voice_over' : 'voice_over_off' }}</v-icon>
           </v-btn>
         </v-layout>

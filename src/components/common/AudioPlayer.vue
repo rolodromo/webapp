@@ -3,13 +3,13 @@
     <v-card-title class='pa-2 ma-0 pb-3 title white--text'>{{ name }}</v-card-title>
     <v-card-text class='pa-0 ma-0 myslide'>
       <v-slider color='indigo darken-4' class='pa-0 ma-0' dark @click.native='setPosition' min='0' :max='duration'
-                step='0.001' v-model='progressBar'></v-slider>
+                step='0.01' v-model='progressBar'></v-slider>
     </v-card-text>
     <v-container class='pa-0 ma-0 container-bar'>
       <v-layout row class='pa-0 ma-0  player-bar' justify-left align-baseline>
 
         <v-flex xs1 class='pa-0 ma-0' dark>
-          <v-btn class='pa-0 ma-0' color='indigo darken-4' icon flat @click.native='playing ? pause() : play()'>
+          <v-btn class='pa-0 ma-0' color='indigo darken-4' icon flat @click.native='playing ? pause() : loadAndPlay()'>
             <v-icon v-if='playing === false'>play_arrow</v-icon>
             <v-icon v-else>pause</v-icon>
           </v-btn>
@@ -38,7 +38,6 @@
 
       </v-layout>
     </v-container>
-
   </v-card>
 </template>
 <script>
@@ -49,6 +48,7 @@ export default {
   mixins: [VueHowler],
   props: {
     name: String,
+    sduration: Number,
     sources: Array
   },
   data() {
@@ -59,7 +59,7 @@ export default {
   },
   computed: {
     durationLabel() {
-      const duration = moment.duration(this.duration, 'seconds')
+      const duration = moment.duration(this.duration || this.sduration, 'seconds')
       return moment(duration.asMilliseconds()).format('mm:ss')
     },
     timeLabel() {
@@ -72,6 +72,12 @@ export default {
     }
   },
   methods: {
+    loadAndPlay() {
+      if (!this.preload) {
+        this.$data._howl.load()
+      }
+      this.play()
+    },
     userVol(val) {
       this.setVolume(val / 100)
     },
