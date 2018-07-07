@@ -1,8 +1,9 @@
-const { VUE_APP_API_URL, VUE_APP_AUTH_CALLBACK_URL } = process.env // eslint-disable-line no-process-env
+const { VUE_APP_API_URL, VUE_APP_FREESOUND_URL, VUE_APP_AUTH_CALLBACK_URL } = process.env // eslint-disable-line no-process-env
 
 const config = {
   api: {
-    baseUrl: VUE_APP_API_URL || 'https://api.rolodromo.com'
+    baseUrl: VUE_APP_API_URL || 'https://api.rolodromo.com',
+    freesoundUrl: VUE_APP_FREESOUND_URL || 'https://freesound.rolodromo.com'
   },
   auth0: {
     AUTH0_DOMAIN: 'guumaster.eu.auth0.com',

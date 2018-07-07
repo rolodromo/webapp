@@ -1,64 +1,66 @@
 import Vue from 'vue'
-import axios, { CancelToken } from 'axios'
-import { get, omit } from 'lodash'
+import { get, omit, findIndex } from 'lodash'
+
+import { searchSounds } from '../../modules/api/freesound'
 
 export const state = {
-  searchResult: [],
-  cancelToken: null
+  list: [],
+  clipped: []
 }
 
 const getters = {}
+
 const mutations = {
-  setCancelToken(state, token) {
-    state.cancelToken = token
-  },
   setSearchResult(state, list) {
     Vue.set(state, 'list', list)
+  },
+  clipSound(state, sound) {
+    const index = findIndex(state.list, snd => snd.id === sound.id)
+    state.list[index].clipped = true
+
+    state.clipped.push(sound)
+  },
+  removeClip(state, sound) {
+    const index = findIndex(state.clipped, snd => snd.id === sound.id)
+    state.clipped[index].clipped = false
+    state.clipped.splice(index, 1)
+  },
+  clearClipped(state) {
+    state.clipped.forEach(snd => snd.clipped = false)
+    Vue.set(state, 'clipped', [])
   }
 }
 const actions = {
-  async search({ state, commit }, { term, maxDuration, sort }) {
+  clip({ commit }, sound) {
+    commit('clipSound', sound)
+  },
+  removeClip({ commit }, sound) {
+    commit('removeClip', sound)
+  },
+  clearClipped({ commit }) {
+    commit('clearClipped')
+  },
+  async search({ commit }, { term, maxDuration, sort }) {
     const query = (term || '').trim()
     if (!query) return
 
-    if (state.cancelToken) {
-      state.cancelToken.cancel()
-    }
-
-    const source = CancelToken.source()
-    commit('setCancelToken', source)
     commit('setSearchResult', [])
 
-    // TODO: Move to api module
-    const res = await axios
-      .get('http://localhost:3000', {
-        params: {
-          query,
-          maxDuration,
-          sort
-        },
-        cancelToken: source.token
-      })
-      .then(res => res.data)
-      .catch(thrown => {
-        if (axios.isCancel(thrown)) return
-        throw thrown
-      })
+    const res = await searchSounds({ query, maxDuration, sort })
 
     const list = get(res, 'results', []).map(sound => {
       return {
         ...omit(sound, ['previews']),
         src: [
-          sound.previews['preview-lq-ogg'],
-          sound.previews['preview-lq-mp3'],
           sound.previews['preview-hq-ogg'],
-          sound.previews['preview-hq-mp3']
+          sound.previews['preview-hq-mp3'],
+          sound.previews['preview-lq-ogg'],
+          sound.previews['preview-lq-mp3']
         ]
       }
     })
 
     commit('setSearchResult', list)
-    commit('setCancelToken', null)
   },
   clear({ commit }) {
     commit('setSearchResult', [])
