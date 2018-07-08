@@ -90,7 +90,7 @@
           <v-avatar class='green darken-4'>{{ clippedList.length }}</v-avatar>
           <span >seleccionados</span>
         </v-chip>
-        <v-btn class='red mx-2' dark small >
+        <v-btn class='red mx-2' dark small @click='saveSearch' >
           <v-icon>add</v-icon>
           <span class='hidden-sm-and-down'>Agregar</span>
         </v-btn>
@@ -194,6 +194,9 @@ export default {
     },
     toggleAdvanced() {
       this.advanced = !this.advanced
+    },
+    saveSearch() {
+      this.$emit('save', this.clippedList)
     }
   }
 }
