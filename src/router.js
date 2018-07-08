@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import store from './store'
 import Home from './views/Home.vue'
 import Dice from './views/Dice.vue'
+import StoryCubes from './views/StoryCubes.vue'
 import Generators from './views/generators/Index.vue'
 import GeneratorsList from './views/generators/List.vue'
 import GeneratorDetail from './views/generators/Detail.vue'
@@ -37,6 +38,16 @@ const router = new Router({
       path: '/acerca',
       name: 'about',
       component: About
+    },
+    {
+      path: '/storycubes',
+      name: 'storycubes',
+      component: StoryCubes,
+      props: true,
+      beforeEnter: async (to, from, next) => {
+        await store.dispatch('generators/load', 'r1yvGJa1-')
+        next()
+      }
     },
     {
       path: '/generadores',

@@ -29,6 +29,15 @@
       </v-list-tile>
 
 
+      <v-list-tile :to='{name: "storycubes"}' router>
+        <v-list-tile-action>
+          <i class='gi gi-rolling-dice-cup gi-2x gi-menu'></i>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>Storycubes</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+
       <v-list-tile :to='{name: "soundboard"}' router>
         <v-list-tile-action>
           <v-icon>library_music</v-icon>
@@ -119,3 +128,10 @@ export default {
   }
 }
 </script>
+<style>
+.gi-menu {
+  padding: 0;
+  margin: 0;
+  width: 1em;
+}
+</style>

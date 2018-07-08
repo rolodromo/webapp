@@ -36,6 +36,16 @@
           />
         </v-flex>
 
+
+        <v-flex xs12 md4 class='pa-3'>
+          <featured-card
+            :to='{ name: "storycubes" }'
+            gi-icon='gi-rolling-dices'
+            image-url='/img/featured/storycubes.jpg'
+            title='Storycubes'
+          />
+        </v-flex>
+
       </v-layout>
     </v-slide-x-transition>
   </v-container>
