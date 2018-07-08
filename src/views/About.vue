@@ -143,6 +143,9 @@
 import ToolCard from '@/components/about/ToolCard.vue'
 
 export default {
+  metaInfo: {
+    title: 'Info'
+  },
   components: {
     ToolCard
   }

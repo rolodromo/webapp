@@ -16,6 +16,11 @@ import SelectorMenu from '@/components/generator/Menu.vue'
 
 export default {
   name: 'generators-list',
+  metaInfo() {
+    return {
+      title: 'Generadores'
+    }
+  },
   components: { ListItem, SelectorMenu },
   props: {
     filter: String

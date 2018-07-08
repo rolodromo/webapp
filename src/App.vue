@@ -23,6 +23,11 @@ import RolMenu from '@/components/layout/Menu.vue'
 
 export default {
   name: 'App',
+  metaInfo: {
+    titleTemplate(titleChunk) {
+      return `${titleChunk ? `${titleChunk} · ` : ''} Rolodromo.com`
+    }
+  },
   components: {
     RolMenu
   },

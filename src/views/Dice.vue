@@ -43,6 +43,9 @@ import { isEqual, remove } from 'lodash'
 
 export default {
   name: 'dice',
+  metaInfo: {
+    title: 'Dados'
+  },
   components: {
     Roll,
     'add-roll': NewRollDialog,

@@ -12,6 +12,9 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'storycubes',
+  metaInfo: {
+    title: 'Storycubes',
+  },
   components: {
     StoryCubesViewer
   },

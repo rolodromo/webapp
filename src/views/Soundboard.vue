@@ -27,6 +27,9 @@ export default {
   components: {
     SoundSearchDialog
   },
+  metaInfo: {
+    title: 'Sonidos',
+  },
   data() {
     return {
       searchbox: false,

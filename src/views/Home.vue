@@ -57,6 +57,9 @@ import FeaturedCard from '@/components/layout/FeaturedCard.vue'
 
 export default {
   name: 'home',
+  metaInfo: {
+    title: 'Home'
+  },
   components: {
     HelloWorld,
     FeaturedCard

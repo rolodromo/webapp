@@ -14,6 +14,11 @@ import GeneratorEditor from '@/components/generator/Editor.vue'
 
 export default {
   name: 'generator-edit',
+  metaInfo() {
+    return {
+      title: `Generador "${this.generator.name || ''}"`
+    }
+  },
   components: { GeneratorEditor },
   props: {
     slug: String,
