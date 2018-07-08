@@ -46,7 +46,6 @@ export default {
   created() {
     this.engine = rpgen.generator.create(`${this.tpls}\n\n${this.tables}`)
     this.rawText = this.engine.generate()
-    console.log('generator', this.tpls)
   },
   methods: {
     regenerate() {
@@ -59,7 +58,12 @@ export default {
 <style>
 .storycubes .generate-pos {
   top: -3.8em !important;
-  right: -1em !important;
+  right: 0 !important;
+}
+.storycubes.xs .generate-pos,
+.storycubes.sm .generate-pos,
+.storycubes.md .generate-pos {
+  right: 2.5em !important;
 }
 .storycubes {
   text-align: center;
