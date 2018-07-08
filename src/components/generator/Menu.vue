@@ -59,6 +59,20 @@
       </v-btn>
     </v-flex>
 
+    <v-flex align-content-center v-if='isAdmin'>
+      <v-btn
+        dark
+        :block='blockMode'
+        :icon='iconMode'
+        :class='hidden?"elevation-1":""'
+        :color='hidden ? "blue lighten-2" : "blue lighten-1"'
+        :to='{ name: "generators-hidden" }'
+      >
+        <icon :left='blockMode' color='orange' name='eye-slash' scale='1.2' class='mx-3  darken-1'></icon>
+        <span class='hidden-sm-and-down'>Ocultos</span>
+      </v-btn>
+    </v-flex>
+
     <v-flex align-content-center>
       <v-btn
         dark
@@ -85,7 +99,7 @@ export default {
     filter: String
   },
   computed: {
-    ...mapGetters('auth', ['isLogged']),
+    ...mapGetters('auth', ['isLogged', 'isAdmin']),
     all() {
       return this.filter === 'all'
     },
@@ -97,6 +111,9 @@ export default {
     },
     owned() {
       return this.filter === 'owned'
+    },
+    hidden() {
+      return this.filter === 'hidden'
     },
     iconMode() {
       return this.$vuetify.breakpoint.xsOnly

@@ -129,6 +129,9 @@ export const actions = {
       case 'liked':
         list = await apiMe.loadFavoriteGenerators()
         break
+      case 'hidden':
+        list = await api.loadHidden()
+        break
       default:
         list = await api.loadAll()
     }

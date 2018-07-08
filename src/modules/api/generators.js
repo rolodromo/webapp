@@ -21,6 +21,8 @@ export const loadNames = () => HTTP.get(`/tables/names`).then(res => res.data)
 
 export const loadFeatured = () => HTTP.get(`/tables/featured`).then(res => res.data)
 
+export const loadHidden = () => HTTP.get(`/admin/hidden`).then(res => res.data)
+
 export const loadGenerator = generatorId => HTTP.get(`/table/${generatorId}`).then(res => res.data)
 
 export const deleteGenerator = generatorId => HTTP.delete(`/table/${generatorId}`).then(res => res.data)

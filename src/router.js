@@ -81,6 +81,17 @@ const router = new Router({
           }
         },
         {
+          path: 'ocultos',
+          name: 'generators-hidden',
+          component: GeneratorsList,
+          props: {
+            filter: 'hidden'
+          },
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
           path: 'nuevo',
           name: 'generator-new',
           component: GeneratorEdit,
