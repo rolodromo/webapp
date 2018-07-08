@@ -7,9 +7,12 @@
       class='text--white'
       :src='imageUrl'>
       <v-container fill-height fluid>
-        <v-layout fill-height>
-          <v-flex xs12 align-end flexbox>
-            <span class='display-2' style='text-shadow: 2px 2px 3px #0c0b28;'>{{ title }}</span>
+        <v-layout fill-height align-center justify-center>
+          <v-flex xs12 align-end flexbox align-c >
+            <i v-if='giIcon' :class='giIcon' class='amber--text  icon-pos shadow-text gi'></i>
+            <div class='amber--text display-3 text-xs-center shadow-text text-pos'>
+              {{ title }}
+            </div>
           </v-flex>
         </v-layout>
       </v-container>
@@ -23,10 +26,31 @@ export default {
   props: {
     imageUrl: String,
     title: String,
-    to: String
+    to: Object,
+    giIcon: String
   }
 }
 </script>
 
 <style scoped>
+.text-pos {
+  white-space: nowrap;
+}
+.shadow-text {
+  text-shadow:
+    -1px -1px 0 #000,
+    0 -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 0 0 #000,
+    4px 0 6px #000,
+    -4px 4px 6px #000,
+    0 4px 6px #000,
+    4px 4px 6px #000;
+}
+.icon-pos {
+  font-size: 5em;
+  position: absolute;
+  top: 0.3em;
+  left: -0.3em;
+}
 </style>

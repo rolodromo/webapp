@@ -12,6 +12,7 @@
         <v-flex xs12 md4 class='pa-3'>
           <featured-card
             :to='{ name: "generators" }'
+            gi-icon='gi-tied-scroll'
             image-url='/img/featured/generators.jpg'
             title='Generadores'
           />
@@ -20,6 +21,7 @@
         <v-flex xs12 md4 class='pa-3'>
           <featured-card
             :to='{ name: "soundboard" }'
+            gi-icon='gi-sound-waves'
             image-url='/img/featured/sounds.jpg'
             title='Sonidos'
           />
@@ -28,6 +30,7 @@
         <v-flex xs12 md4 class='pa-3'>
           <featured-card
             :to='{ name: "dice" }'
+            gi-icon='gi-rolling-dices'
             image-url='/img/featured/dice.jpg'
             title='Dados'
           />
