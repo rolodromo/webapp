@@ -31,6 +31,9 @@ const getters = {
   isAdmin(state) {
     return !!state.isAdmin
   },
+  userAvatar() {
+    return get(state.user, 'profile.picture', '')
+  },
   returnUrl(state) {
     return state.returnUrl || '/'
   }

@@ -1,16 +1,39 @@
 <template>
   <v-navigation-drawer
-    app
+    right
+    disable-resize-watcher
+    temporary
+    hide-overlay
     fixed
-    clipped
     v-model='openDrawer'
     :input='$emit("update:drawer", openDrawer)'
     class='grey lighten-4'
   >
-    <v-list dense>
+    <v-card tile flat class='pa-0 ma-0'>
+      <v-card-media
+        src='/img/menu_background.jpg'
+        height='150px'>
+        <v-container fill-height pa-0>
+          <v-layout align-start>
+            <v-flex xs10 pa-3 class='text-xs-left'>
+              <v-avatar size='46px'>
+                <img :src='userAvatar' v-if='userAvatar'/>
+                <v-icon dark size='46px' v-else>account_circle</v-icon>
+              </v-avatar>
+            </v-flex>
+            <v-flex xs1>
+              <v-btn dark icon big @click.stop='openDrawer = !openDrawer'>
+                <v-icon>close</v-icon>
+              </v-btn>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-card-media>
+    </v-card>
+    <v-list dense router id='menu'>
       <v-subheader>Secciones</v-subheader>
 
-      <v-list-tile :to='{name: "home" }' router ripple>
+      <v-list-tile :to='{name: "home"}'>
         <v-list-tile-action>
           <v-icon>home</v-icon>
         </v-list-tile-action>
@@ -19,7 +42,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile :to='{name: "generators"}' router>
+      <v-list-tile :to='{name: "generators"}'>
         <v-list-tile-action>
           <v-icon>star</v-icon>
         </v-list-tile-action>
@@ -28,8 +51,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
-
-      <v-list-tile :to='{name: "storycubes"}' router>
+      <v-list-tile :to='{name: "storycubes"}'>
         <v-list-tile-action>
           <i class='gi gi-rolling-dice-cup gi-2x gi-menu'></i>
         </v-list-tile-action>
@@ -38,7 +60,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile :to='{name: "soundboard"}' router>
+      <v-list-tile :to='{name: "soundboard"}'>
         <v-list-tile-action>
           <v-icon>library_music</v-icon>
         </v-list-tile-action>
@@ -47,7 +69,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile :to='{name: "dice"}' router>
+      <v-list-tile :to='{name: "dice"}'>
         <v-list-tile-action>
           <v-icon>widgets</v-icon>
         </v-list-tile-action>
@@ -56,7 +78,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile :to='{name: "about"}' router>
+      <v-list-tile :to='{name: "about"}'>
         <v-list-tile-action>
           <v-icon>info_outline</v-icon>
         </v-list-tile-action>
@@ -68,26 +90,26 @@
       <v-divider light/>
       <v-subheader>Ajustes</v-subheader>
 
-      <v-list-tile @click.native='login' v-if='!isLogged'>
+      <v-list-tile @click.native.stop='login' v-if='!isLogged' href='/'>
         <v-list-tile-action>
-          <icon name='sign-in-alt' scale='1.15'></icon>
+          <icon name='sign-in-alt'></icon>
         </v-list-tile-action>
         <v-list-tile-content>
           <v-list-tile-title>Entrar</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile v-if='isLogged' @click.native='logout'>
+      <v-list-tile v-if='isLogged' @click.native.stop='logout' href='/'>
         <v-list-tile-action>
-          <icon name='sign-out-alt' flip='horizontal' scale='1.15'></icon>
+          <icon name='sign-out-alt' flip='horizontal'></icon>
         </v-list-tile-action>
         <v-list-tile-content>
           <v-list-tile-title>Salir</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
+
     </v-list>
   </v-navigation-drawer>
-
 </template>
 
 <script>
@@ -105,7 +127,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isLogged: 'auth/isLogged'
+      isLogged: 'auth/isLogged',
+      userAvatar: 'auth/userAvatar'
     })
   },
   watch: {
@@ -128,9 +151,8 @@ export default {
   }
 }
 </script>
-<style>
-.gi-menu {
-  padding: 0;
+<style scoped>
+#menu .gi {
   margin: 0;
   width: 1em;
 }

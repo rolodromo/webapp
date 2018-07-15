@@ -1,7 +1,7 @@
 <template>
-  <div class='logo text-xs-center'>
-    <img :class='classSize' src='/img/icons/icon-512x512.png' alt='Rolodromo'/>
-  </div>
+  <a class='logo text-xs-center' href='/' title='Rolodromo.com'>
+    <img :class='classSize' src='/img/icons/icon-512x512.png' alt='Rolodromo.com' />
+  </a>
 </template>
 <script>
 export default {
