@@ -1,13 +1,15 @@
 <template>
-  <v-dialog v-model='open' scrollable persistent>
+  <v-dialog v-model='open' hide-overlay scrollable persistent fullscreen transition='dialog-bottom-transition'>
     <v-card>
-      <v-card-title>
-        <v-btn right flat small icon @click='open = false'>
+      <v-toolbar dense dark color='primary'>
+        <v-btn icon dark @click.native='open = false'>
           <v-icon>close</v-icon>
         </v-btn>
-        <span class='headline'>Buscar </span>
+        <v-toolbar-title>Buscador de audio</v-toolbar-title>
         <v-spacer></v-spacer>
-      </v-card-title>
+
+      </v-toolbar>
+
       <v-card-text class='py-0'>
         <v-text-field
           autofocus
@@ -43,7 +45,7 @@
             <v-flex xs12 md6 class='pb-2'>
               <span class='subheading'>Orden</span><br class='hidden-md-and-up'/>
               <v-btn-toggle small v-model='sort' @click.native='toggleDirection' mandatory>
-                <v-btn small  flat value='ratingDir'>
+                <v-btn small flat value='ratingDir'>
                   <v-icon>{{ ratingDir === 'desc' ? 'expand_more' : 'expand_less'}}</v-icon>
                   rating
                 </v-btn>
@@ -60,7 +62,8 @@
           </v-layout>
         </v-card-text>
       </v-slide-y-transition>
-      <v-card-text style='height: 60vh;'>
+
+      <v-card-text style='min-height: 60vh; max-height: 80vh;'>
         <v-layout row wrap>
           <template v-for='sound in searchList'>
             <v-flex xs12 sm6 lg4 xl3 :key='sound.id' class='pb-2 px-1' style='position: relative;'>
@@ -84,13 +87,14 @@
           </template>
         </v-layout>
       </v-card-text>
+
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-chip close color='green' text-color='white' :v-show='clippedList.length > 0' v-model='showClip'>
           <v-avatar class='green darken-4'>{{ clippedList.length }}</v-avatar>
-          <span >seleccionados</span>
+          <span>seleccionados</span>
         </v-chip>
-        <v-btn class='red mx-2' dark small @click='saveSearch' >
+        <v-btn class='red mx-2' dark small @click='saveSearch'>
           <v-icon>add</v-icon>
           <span class='hidden-sm-and-down'>Agregar</span>
         </v-btn>

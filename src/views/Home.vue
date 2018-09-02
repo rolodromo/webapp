@@ -5,7 +5,7 @@
         <v-flex xs12>
           <v-card flat class='transparent text-xs-center py-0'>
             <logo size='big' class='mt-3 mb-3'/>
-            <HelloWorld msg='Bienvenido a Rolodromo.com'/>
+            <rol-header msg='Bienvenido a Rolodromo.com'/>
           </v-card>
         </v-flex>
 
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue'
+import RolHeader from '@/components/layout/Header.vue'
 import FeaturedCard from '@/components/layout/FeaturedCard.vue'
 
 export default {
@@ -61,7 +61,7 @@ export default {
     title: 'Home'
   },
   components: {
-    HelloWorld,
+    RolHeader,
     FeaturedCard
   },
   methods: {}

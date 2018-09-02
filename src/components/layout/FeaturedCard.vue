@@ -2,7 +2,7 @@
   <v-card
     :to='to'
     dark class='elevation-10' style='border-radius: 10px!important;'>
-    <v-card-media
+    <v-img
       height='50vh'
       class='text--white'
       :src='imageUrl'>
@@ -16,7 +16,7 @@
           </v-flex>
         </v-layout>
       </v-container>
-    </v-card-media>
+    </v-img>
   </v-card>
 </template>
 

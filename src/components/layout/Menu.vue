@@ -10,7 +10,7 @@
     class='grey lighten-4'
   >
     <v-card tile flat class='pa-0 ma-0'>
-      <v-card-media
+      <v-img
         src='/img/menu_background.jpg'
         height='150px'>
         <v-container fill-height pa-0>
@@ -28,7 +28,7 @@
             </v-flex>
           </v-layout>
         </v-container>
-      </v-card-media>
+      </v-img>
     </v-card>
     <v-list dense router id='menu'>
       <v-subheader>Secciones</v-subheader>

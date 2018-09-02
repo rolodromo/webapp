@@ -148,6 +148,7 @@
               <v-textarea
                 class=' table-area pa-1 ma-2  grey lighten-4'
                 :height='small ? "70vh" : "78.5vh"'
+                rows='35'
                 no-resize
                 hide-details
                 flat

@@ -14,7 +14,7 @@
   >
     <logo size='small'/>
     <v-toolbar-title class='ml-0 px-2'>
-      <span class='title shadow'>{{ title }}</span>
+      <span class='title shadow'>Rolodromo.com</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-side-icon class='my-0 ml-0 pl-0' @click.stop='$emit("menu:click")'></v-toolbar-side-icon>

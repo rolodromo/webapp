@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panel>
-    <v-expansion-panel-content color='secondary' :value='true'>
+    <v-expansion-panel-content color='secondary'>
       <div slot='header'>
         <v-toolbar-title>Anteriores</v-toolbar-title>
       </div>
