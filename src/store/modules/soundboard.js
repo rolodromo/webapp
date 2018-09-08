@@ -26,7 +26,7 @@ const mutations = {
     state.clipped.splice(index, 1)
   },
   clearClipped(state) {
-    state.clipped.forEach(snd => snd.clipped = false)
+    state.clipped.forEach(snd => (snd.clipped = false))
     Vue.set(state, 'clipped', [])
   }
 }

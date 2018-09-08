@@ -11,7 +11,13 @@ let CANCEL_TOKEN
 
 const cleanName = sound => ({
   ...sound,
-  name: capitalize(sound.name.toLowerCase().replace(/(_|\s)+/g, ' ').replace(/\.(aif|mp3|wav)$/, '').trim())
+  name: capitalize(
+    sound.name
+      .toLowerCase()
+      .replace(/(_|\s)+/g, ' ')
+      .replace(/\.(aif|mp3|wav)$/, '')
+      .trim()
+  )
 })
 
 export const searchSounds = ({ query, maxDuration, sort }) => {

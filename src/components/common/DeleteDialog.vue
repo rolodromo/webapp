@@ -6,8 +6,8 @@
       </v-flex>
 
       <v-card class='pa-0 ma-0'>
-        <v-card-title class='error white--text title'>{{title}}</v-card-title>
-        <v-card-text>{{description}}</v-card-text>
+        <v-card-title class='error white--text title'>{{ title }}</v-card-title>
+        <v-card-text>{{ description }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn class='success' @click.native='deleteDialog=false'>Cancelar</v-btn>

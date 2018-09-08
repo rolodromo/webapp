@@ -42,7 +42,7 @@ import RollLog from '@/components/dice/RollLog'
 import { isEqual, remove } from 'lodash'
 
 export default {
-  name: 'dice',
+  name: 'Dice',
   metaInfo: {
     title: 'Dados'
   },

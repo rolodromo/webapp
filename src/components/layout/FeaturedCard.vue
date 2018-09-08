@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: 'featured-card',
+  name: 'FeaturedCard',
   props: {
     imageUrl: String,
     title: String,
@@ -37,15 +37,8 @@ export default {
   white-space: nowrap;
 }
 .shadow-text {
-  text-shadow:
-    -1px -1px 0 #000,
-    0 -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 0 0 #000,
-    4px 0 6px #000,
-    -4px 4px 6px #000,
-    0 4px 6px #000,
-    4px 4px 6px #000;
+  text-shadow: -1px -1px 0 #000, 0 -1px 0 #000, 1px -1px 0 #000, -1px 0 0 #000, 4px 0 6px #000, -4px 4px 6px #000,
+    0 4px 6px #000, 4px 4px 6px #000;
 }
 .icon-pos {
   font-size: 5em;

@@ -23,7 +23,7 @@
                          @addFavorite='addFavorite'
                          @removeFavorite='removeFavorite'
           ></favorite-icon>
-          <span>{{generator.createdAt | moment('from', 'now')}}</span>
+          <span>{{ generator.createdAt | moment('from', 'now') }}</span>
           <v-spacer></v-spacer>
           <avatar size='small' :src='generator.author.picture' :alt='generator.author.name'/>
         </v-card-actions>

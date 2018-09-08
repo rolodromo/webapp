@@ -211,7 +211,7 @@
       </v-flex>
 
       <!-- TABLE SELECTOR -->
-      <v-dialog v-model='pickTable' scrollable  width='70%' >
+      <v-dialog v-model='pickTable' scrollable width='70%' >
         <v-card>
           <v-card-title>
             <span class='headline'>Insertar tabla</span>
@@ -224,7 +224,7 @@
                   @click='addTable(name)'
                 >
                   <v-list-tile-content>
-                    <v-list-tile-title>{{name}}</v-list-tile-title>
+                    <v-list-tile-title>{{ name }}</v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
                 <v-divider :key='`${idx}-div`'></v-divider>

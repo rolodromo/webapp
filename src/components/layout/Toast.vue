@@ -8,7 +8,7 @@
     :vertical='false'
     v-model='snackbar'
   >
-    {{toast.message}}
+    {{ toast.message }}
     <v-spacer></v-spacer>
     <v-btn flat dark @click.native='close'>
       <v-icon>clear</v-icon>

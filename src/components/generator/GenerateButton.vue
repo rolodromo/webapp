@@ -36,7 +36,7 @@ export default {
   z-index: 3;
 }
 
-.generate-big{
+.generate-big {
   top: 6.5em;
   position: absolute;
   right: 2.5em;

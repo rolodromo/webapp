@@ -13,7 +13,7 @@ import { mapState, mapGetters } from 'vuex'
 import GeneratorEditor from '@/components/generator/Editor.vue'
 
 export default {
-  name: 'generator-edit',
+  name: 'GeneratorEdit',
   metaInfo() {
     return {
       title: `Generador "${this.generator.name || ''}"`

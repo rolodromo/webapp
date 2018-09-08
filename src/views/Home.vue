@@ -56,7 +56,7 @@ import RolHeader from '@/components/layout/Header.vue'
 import FeaturedCard from '@/components/layout/FeaturedCard.vue'
 
 export default {
-  name: 'home',
+  name: 'Home',
   metaInfo: {
     title: 'Home'
   },

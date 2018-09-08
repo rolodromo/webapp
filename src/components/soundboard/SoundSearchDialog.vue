@@ -46,15 +46,15 @@
               <span class='subheading'>Orden</span><br class='hidden-md-and-up'/>
               <v-btn-toggle small v-model='sort' @click.native='toggleDirection' mandatory>
                 <v-btn small flat value='ratingDir'>
-                  <v-icon>{{ ratingDir === 'desc' ? 'expand_more' : 'expand_less'}}</v-icon>
+                  <v-icon>{{ ratingDir === 'desc' ? 'expand_more' : 'expand_less' }}</v-icon>
                   rating
                 </v-btn>
                 <v-btn small flat value='durationDir'>
-                  <v-icon>{{ durationDir === 'desc' ? 'expand_more' : 'expand_less'}}</v-icon>
+                  <v-icon>{{ durationDir === 'desc' ? 'expand_more' : 'expand_less' }}</v-icon>
                   duración
                 </v-btn>
                 <v-btn small flat value='scoreDir'>
-                  <v-icon>{{ scoreDir === 'desc' ? 'expand_more' : 'expand_less'}}</v-icon>
+                  <v-icon>{{ scoreDir === 'desc' ? 'expand_more' : 'expand_less' }}</v-icon>
                   relevancia
                 </v-btn>
               </v-btn-toggle>

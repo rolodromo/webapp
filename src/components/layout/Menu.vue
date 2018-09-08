@@ -116,7 +116,7 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: 'rol-menu',
+  name: 'RolMenu',
   props: {
     drawer: Boolean
   },

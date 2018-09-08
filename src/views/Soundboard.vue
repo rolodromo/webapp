@@ -28,7 +28,7 @@ export default {
     SoundSearchDialog
   },
   metaInfo: {
-    title: 'Sonidos',
+    title: 'Sonidos'
   },
   data() {
     return {

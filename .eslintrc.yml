@@ -2,16 +2,21 @@ root: true
 env:
   node: true
 extends:
-  - 'plugin:vue/essential'
+  - 'plugin:vue/strongly-recommended'
   - '@vue/prettier'
-
 parserOptions:
-  parser: 'babel-eslint'
-
+  parser: babel-eslint
 rules:
-  vue/attribute-hyphenation: ['error', 'always']
-  vue/html-indent: ['error', 2]
-  vue/require-prop-types: 'error'
-  vue/html-quotes: ['error', 'single']
-  vue/order-in-components: 'error'
+  vue/attribute-hyphenation:
+    - error
+    - always
+  vue/html-indent:
+    - error
+    - 2
+  vue/html-quotes:
+    - error
+    - single
   no-console: 0
+  vue/max-attributes-per-line: 'off'
+  vue/html-self-closing: 'off'
+  vue/require-default-prop: warning

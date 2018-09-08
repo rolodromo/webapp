@@ -1,6 +1,6 @@
 <template>
   <v-container fluid grid-list-md>
-    <v-layout  align-center justify-center justify-content-center>
+    <v-layout align-center justify-center justify-content-center>
       <story-cubes-viewer :generator='generator'></story-cubes-viewer>
     </v-layout>
   </v-container>
@@ -11,9 +11,9 @@ import StoryCubesViewer from '@/components/storycubes/Viewer.vue'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'storycubes',
+  name: 'Storycubes',
   metaInfo: {
-    title: 'Storycubes',
+    title: 'Storycubes'
   },
   components: {
     StoryCubesViewer

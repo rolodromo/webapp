@@ -15,7 +15,7 @@ import ListItem from '@/components/generator/ListItem.vue'
 import SelectorMenu from '@/components/generator/Menu.vue'
 
 export default {
-  name: 'generators-list',
+  name: 'GeneratorsList',
   metaInfo() {
     return {
       title: 'Generadores'
