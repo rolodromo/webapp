@@ -4,13 +4,11 @@
             :color='color'
             @mouseover='hover=true'
             @mouseout='hover=false'
-            @click.native='removeFavorite($event)'
     >{{ icon }}</v-icon>
     <v-icon v-else
             :color='color'
             @mouseover='hover=true'
             @mouseout='hover=false'
-            @click.native='addFavorite($event)'
     >{{ icon }}</v-icon>
   </a>
 </template>

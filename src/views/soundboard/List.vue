@@ -1,11 +1,11 @@
 <template>
-  <v-container fluid grid-list-md>
+  <v-container fluid grid-list-md pa-0 ma-0>
     <v-layout row wrap justify-space-between>
 
       <v-flex xs12 text-xs-left pb-3>
         <v-layout row fluid align-baseline>
           <v-spacer></v-spacer>
-          <v-btn color='red' dark icon @click='openSearchBox'>
+          <v-btn color='red' dark icon :to='{ name: "sound-search" }'>
             <v-icon>search</v-icon>
           </v-btn>
         </v-layout>
@@ -15,18 +15,12 @@
         <audio-player :name='sound.name' :preload='false' :sources='sound.src' :loop='true'/>
       </v-flex>
 
-      <sound-search-dialog :searchbox.sync='searchbox' @save='saveSearch'></sound-search-dialog>
-
     </v-layout>
   </v-container>
 </template>
 <script>
-import SoundSearchDialog from '@/components/soundboard/SoundSearchDialog.vue'
 
 export default {
-  components: {
-    SoundSearchDialog
-  },
   metaInfo: {
     title: 'Sonidos'
   },

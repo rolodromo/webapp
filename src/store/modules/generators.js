@@ -6,16 +6,21 @@ import Vue from 'vue'
 const EMPTY_GENERATOR = {
   data: {}
 }
-export const state = {
+const getDefaultState = () => ({
   current: EMPTY_GENERATOR,
   generatorList: [],
   listFilter: 'all',
   list: []
-}
+})
+const state = getDefaultState()
+
 export const mutations = {
   setList(state, { type, list }) {
     state.listFilter = type
     state.list = list
+  },
+  reset(state) {
+    Object.assign(state, getDefaultState())
   },
   addLike(state, { id, userId }) {
     const fav = state.list.filter(item => item.id === id)[0]
@@ -73,6 +78,10 @@ export const getters = {
 export const actions = {
   setNew({ commit }) {
     commit('setGenerator', {})
+  },
+
+  reset({ commit }) {
+    commit('reset')
   },
 
   async load({ commit }, id) {

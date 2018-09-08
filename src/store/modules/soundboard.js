@@ -1,45 +1,31 @@
 import Vue from 'vue'
-import { get, omit, findIndex } from 'lodash'
+import { findIndex, get, omit } from 'lodash'
 
 import { searchSounds } from '../../modules/api/freesound'
 
 export const state = {
-  list: [],
-  clipped: []
+  list: []
 }
 
 const getters = {}
 
 const mutations = {
+  markClipped(state, sound) {
+    const index = findIndex(state.list, snd => snd.id === sound.id)
+
+    state.list[index].clipped = true
+    Vue.set(state.list, index, state.list[index])
+  },
+  unmarkClipped(state, sound) {
+    const index = findIndex(state.list, snd => snd.id === sound.id)
+    state.list[index].clipped = false
+    Vue.set(state.list, index, state.list[index])
+  },
   setSearchResult(state, list) {
     Vue.set(state, 'list', list)
-  },
-  clipSound(state, sound) {
-    const index = findIndex(state.list, snd => snd.id === sound.id)
-    state.list[index].clipped = true
-
-    state.clipped.push(sound)
-  },
-  removeClip(state, sound) {
-    const index = findIndex(state.clipped, snd => snd.id === sound.id)
-    state.clipped[index].clipped = false
-    state.clipped.splice(index, 1)
-  },
-  clearClipped(state) {
-    state.clipped.forEach(snd => (snd.clipped = false))
-    Vue.set(state, 'clipped', [])
   }
 }
 const actions = {
-  clip({ commit }, sound) {
-    commit('clipSound', sound)
-  },
-  removeClip({ commit }, sound) {
-    commit('removeClip', sound)
-  },
-  clearClipped({ commit }) {
-    commit('clearClipped')
-  },
   async search({ commit }, { term, maxDuration, sort }) {
     const query = (term || '').trim()
     if (!query) return
@@ -61,6 +47,14 @@ const actions = {
     })
 
     commit('setSearchResult', list)
+  },
+  addClip({ commit, dispatch }, sound) {
+    commit('markClipped', sound)
+    return dispatch('clip/add', { obj: sound, id: sound.id, type: 'sound' }, { root: true })
+  },
+  removeClip({ commit, dispatch }, sound) {
+    commit('unmarkClipped', sound)
+    return dispatch('clip/remove', { id: sound.id, type: 'sound' }, { root: true })
   },
   clear({ commit }) {
     commit('setSearchResult', [])

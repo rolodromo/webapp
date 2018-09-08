@@ -15,15 +15,13 @@ import ListItem from '@/components/generator/ListItem.vue'
 import SelectorMenu from '@/components/generator/Menu.vue'
 
 export default {
-  name: 'GeneratorsList',
-  metaInfo() {
-    return {
-      title: 'Generadores'
-    }
-  },
+  name: 'CollectionList',
   components: { ListItem, SelectorMenu },
   props: {
-    filter: String
+    filter: {
+      type: String,
+      default: ''
+    }
   },
   computed: {
     ...mapState('generators', {
@@ -39,11 +37,7 @@ export default {
     this.loadList(this.filter)
   },
   methods: {
-    ...mapActions('generators', ['loadList', 'reset'])
-  },
-  beforeRouteLeave(to, from, next) {
-    this.reset()
-    next()
+    ...mapActions('generators', ['loadList'])
   }
 }
 </script>
