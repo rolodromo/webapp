@@ -6,6 +6,7 @@
       Sonidos
     </v-card-title>
     <v-layout row wrap>
+      <v-card-title v-if='!sounds.length' flat class='font-weight-thin font-italic title ml-5'>No hay clips de audio</v-card-title>
       <v-flex xs12 sm10 md6 lg4 xl3 v-for='sound in sounds' :key='sound.id'>
         <clip-item :element='sound' ></clip-item>
       </v-flex>
@@ -16,6 +17,7 @@
       Generadores
     </v-card-title>
     <v-layout row wrap>
+      <v-card-title v-if='!generators.length' flat class='font-weight-thin font-italic title ml-5'>No hay generadores seleccionados</v-card-title>
       <v-flex xs12 sm10 md6 lg4 xl3 v-for='generator in generators' :key='generator.id'>
         <clip-item :element='generator'></clip-item>
       </v-flex>
