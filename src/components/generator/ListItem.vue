@@ -1,5 +1,9 @@
 <template>
   <v-card flat :to='generator.link' class='pb-1'>
+    <clip-btn
+      :element='generator'
+      type='generator'
+    />
     <v-layout column fill-height align-content-start>
 
       <v-flex d-flex class=' py-0 px-2' style='flex-grow: 0;'>
@@ -35,10 +39,12 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import FavoriteIcon from './FavoriteIcon.vue'
+import ClipBtn from '@/components/common/ClipBtn'
 
 export default {
   components: {
-    FavoriteIcon
+    FavoriteIcon,
+    ClipBtn
   },
   props: {
     generator: Object

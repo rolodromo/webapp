@@ -1,10 +1,19 @@
 import Vue from 'vue'
+import { has, filter } from 'lodash'
 
 export const state = {
   clipped: {}
 }
 
-const getters = {}
+const getters = {
+  isClipped: state => (id, type) => has(state.clipped, `${type}/${id}`),
+  sounds(state) {
+    return filter(state.clipped, { type: 'sound' })
+  },
+  generators(state) {
+    return filter(state.clipped, { type: 'generator' })
+  }
+}
 
 const mutations = {
   addClip(state, { obj, id, type }) {
@@ -26,6 +35,17 @@ const actions = {
   },
   clear({ commit }) {
     commit('clear')
+  }
+}
+
+export const clipActions = type => {
+  return {
+    addClip({ dispatch }, obj) {
+      return dispatch('clip/add', { obj, id: obj.id, type }, { root: true })
+    },
+    removeClip({ dispatch }, obj) {
+      return dispatch('clip/remove', { id: obj.id, type }, { root: true })
+    }
   }
 }
 

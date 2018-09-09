@@ -3,6 +3,8 @@ import * as api from '../../modules/api/generators'
 import * as apiMe from '../../modules/api/me'
 import Vue from 'vue'
 
+import { clipActions } from './clip'
+
 const EMPTY_GENERATOR = {
   data: {}
 }
@@ -169,7 +171,8 @@ export const actions = {
   async removeLike({ commit }, payload) {
     await api.removeLike(payload.id)
     commit('removeLike', payload)
-  }
+  },
+  ...clipActions('generator')
 }
 export default {
   namespaced: true,

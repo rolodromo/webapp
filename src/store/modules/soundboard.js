@@ -1,7 +1,9 @@
 import Vue from 'vue'
-import { findIndex, get, omit } from 'lodash'
+import { get, omit } from 'lodash'
 
 import { searchSounds } from '../../modules/api/freesound'
+
+import { clipActions } from './clip'
 
 export const state = {
   list: []
@@ -10,17 +12,6 @@ export const state = {
 const getters = {}
 
 const mutations = {
-  markClipped(state, sound) {
-    const index = findIndex(state.list, snd => snd.id === sound.id)
-
-    state.list[index].clipped = true
-    Vue.set(state.list, index, state.list[index])
-  },
-  unmarkClipped(state, sound) {
-    const index = findIndex(state.list, snd => snd.id === sound.id)
-    state.list[index].clipped = false
-    Vue.set(state.list, index, state.list[index])
-  },
   setSearchResult(state, list) {
     Vue.set(state, 'list', list)
   }
@@ -48,14 +39,9 @@ const actions = {
 
     commit('setSearchResult', list)
   },
-  addClip({ commit, dispatch }, sound) {
-    commit('markClipped', sound)
-    return dispatch('clip/add', { obj: sound, id: sound.id, type: 'sound' }, { root: true })
-  },
-  removeClip({ commit, dispatch }, sound) {
-    commit('unmarkClipped', sound)
-    return dispatch('clip/remove', { id: sound.id, type: 'sound' }, { root: true })
-  },
+
+  ...clipActions('sound'),
+
   clear({ commit }) {
     commit('setSearchResult', [])
   }

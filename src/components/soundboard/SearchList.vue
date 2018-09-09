@@ -4,7 +4,6 @@
 
       <clip-btn
         :element='sound'
-        :clipped='sound.clipped'
         type='sound'
       />
 
@@ -22,7 +21,7 @@
 <script>
 import { mapState } from 'vuex'
 
-import ClipBtn from '@/components/clip/ClipBtn'
+import ClipBtn from '@/components/common/ClipBtn'
 
 export default {
   components: { ClipBtn },

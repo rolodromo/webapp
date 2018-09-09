@@ -78,6 +78,15 @@
         </v-list-tile-content>
       </v-list-tile>
 
+      <v-list-tile :to='{name: "clips"}'>
+        <v-list-tile-action>
+          <icon name='paperclip'></icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>Recortes</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+
       <v-list-tile :to='{name: "about"}'>
         <v-list-tile-action>
           <v-icon>info_outline</v-icon>
