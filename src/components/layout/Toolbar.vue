@@ -15,8 +15,11 @@
     <logo size='small'/>
     <v-toolbar-title class='ml-0 px-2'>
       <span class='title shadow'>Rolodromo.com</span>
+
     </v-toolbar-title>
+
     <v-spacer></v-spacer>
+    <div style='max-width: 50px'><spinner></spinner></div>
     <v-toolbar-side-icon class='my-0 ml-0 pl-0' @click.stop='$emit("menu:click")'></v-toolbar-side-icon>
 
     <!-- TODO: Add a nice extended toolbar -->
@@ -36,7 +39,12 @@
   </v-toolbar>
 </template>
 <script>
+import Spinner from '../common/Spinner'
+
 export default {
-  name: 'RolToolbar'
+  name: 'RolToolbar',
+  components: {
+    Spinner
+  }
 }
 </script>

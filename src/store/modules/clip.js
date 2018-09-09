@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { has, filter } from 'lodash'
+import { has, filter, unset } from 'lodash'
 
 export const state = {
   clipped: {}
@@ -24,6 +24,13 @@ const mutations = {
   },
   clear(state) {
     Vue.set(state, 'clipped', {})
+  },
+  clearByType(state, type) {
+    Object.keys(state.clipped).forEach(key => {
+      if (state.clipped[key].type === type) {
+        Vue.delete(state.clipped, key)
+      }
+    })
   }
 }
 const actions = {

@@ -7,6 +7,7 @@ import baseRoutes from './routes/base'
 import clipsRoutes from './routes/clips'
 import generatorsRoutes from './routes/generators'
 import soundboardRoutes from './routes/soundboard'
+import collectionsRoutes from './routes/collections'
 import NotFound from './views/NotFound.vue'
 
 Vue.use(Router)
@@ -18,6 +19,7 @@ const router = new Router({
     ...clipsRoutes,
     ...generatorsRoutes,
     ...soundboardRoutes,
+    ...collectionsRoutes,
     {
       path: '*',
       component: NotFound

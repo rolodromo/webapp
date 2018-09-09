@@ -1,5 +1,6 @@
+import store from '../store'
 import Index from '../views/ViewContainer.vue'
-import SoundList from '../views/soundboard/List.vue'
+import CollectionList from '../views/soundboard/CollectionList.vue'
 import SoundSearch from '../views/soundboard/Search.vue'
 
 export default [
@@ -10,7 +11,11 @@ export default [
       {
         path: '',
         name: 'soundboard',
-        component: SoundList
+        component: CollectionList,
+        beforeEnter: async (to, from, next) => {
+          await store.dispatch('collections/loadCollections', 'sounds')
+          next()
+        }
       },
       {
         path: 'search',

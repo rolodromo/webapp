@@ -9,13 +9,13 @@ const API = axios.create({
 
 let CANCEL_TOKEN
 
-const cleanName = sound => ({
+export const cleanName = sound => ({
   ...sound,
   name: capitalize(
     sound.name
       .toLowerCase()
       .replace(/(_|\s)+/g, ' ')
-      .replace(/\.(aif|mp3|wav|flacc|ogg)$/, '')
+      .replace(/\.(aif|mp3|wav|flacc|ogg|m4a|aac|oga|webm)$/, '')
       .trim()
   )
 })

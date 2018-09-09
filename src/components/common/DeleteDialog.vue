@@ -1,6 +1,6 @@
 <template>
   <v-flex>
-    <v-dialog v-model='deleteDialog' persistent :disabled='disabled'>
+    <v-dialog light v-model='deleteDialog' persistent :disabled='disabled'>
       <v-flex slot='activator' d-block >
         <slot name='activator' style='display: block;'></slot>
       </v-flex>

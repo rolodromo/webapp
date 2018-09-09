@@ -2,6 +2,7 @@
   <v-container fluid grid-list-md>
 
     <search-options></search-options>
+    <spinner dark size='150'></spinner>
     <search-list></search-list>
 
   </v-container>
@@ -9,13 +10,15 @@
 <script>
 import SearchOptions from '@/components/soundboard/SearchOptions.vue'
 import SearchList from '@/components/soundboard/SearchList.vue'
+import Spinner from '@/components/common/Spinner'
 
 import { mapActions } from 'vuex'
 
 export default {
   components: {
     SearchOptions,
-    SearchList
+    SearchList,
+    Spinner
   },
   metaInfo: {
     title: 'Buscar Sonidos'

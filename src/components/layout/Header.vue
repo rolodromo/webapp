@@ -1,5 +1,7 @@
 <template>
-  <div class='display-1 font-weight-bold'>{{ msg }}</div>
+  <div style='text-align: center;'>
+    <div class='display-1 font-weight-bold'>{{ msg }}</div>
+  </div>
 </template>
 
 <script>

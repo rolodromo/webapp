@@ -82,7 +82,6 @@ export default {
   methods: {
     ...mapActions('soundboard', ['search', 'clear']),
     doSearch() {
-      console.log('ser')
       const { searchText: term, durationSelect: maxDuration, sortSelect: sort } = this
       this.search({ term, maxDuration, sort })
     },

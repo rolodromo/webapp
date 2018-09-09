@@ -6,22 +6,36 @@ import { searchSounds } from '../../modules/api/freesound'
 import { clipActions } from './clip'
 
 export const state = {
-  list: []
+  list: [],
+  term: '',
+  empty: false,
+  searching: false
 }
 
 const getters = {}
 
 const mutations = {
+  setTerm(state, term) {
+    state.term = term
+  },
+  setSearching(state, val) {
+    state.searching = val
+  },
   setSearchResult(state, list) {
     Vue.set(state, 'list', list)
+    state.empty = state.term && !list.length && !state.searching
   }
 }
 const actions = {
-  async search({ commit }, { term, maxDuration, sort }) {
+  async search({ dispatch, commit }, { term, maxDuration, sort }) {
     const query = (term || '').trim()
     if (!query) return
 
+    commit('setTerm', term)
+    commit('setSearching', true)
     commit('setSearchResult', [])
+
+    dispatch('wait/start', 'search-sounds', { root: true })
 
     const res = await searchSounds({ query, maxDuration, sort })
 
@@ -37,12 +51,14 @@ const actions = {
       }
     })
 
+    dispatch('wait/end', 'search-sounds', { root: true })
+    commit('setSearching', false)
     commit('setSearchResult', list)
   },
-
   ...clipActions('sound'),
 
   clear({ commit }) {
+    commit('setTerm', '')
     commit('setSearchResult', [])
   }
 }

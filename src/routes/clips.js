@@ -10,7 +10,6 @@ export default [
         path: '',
         name: 'clips',
         component: List
-
       }
     ]
   }

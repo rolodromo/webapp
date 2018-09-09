@@ -3,6 +3,7 @@ import { get } from 'lodash'
 import * as auth from '../../modules/api/auth'
 import * as auth0 from '../../modules/auth/auth0'
 import * as generators from '../../modules/api/generators'
+import * as collections from '../../modules/api/collections'
 import * as me from '../../modules/api/me'
 
 import * as storage from '../../modules/storage/auth'
@@ -71,6 +72,7 @@ const actions = {
       accessToken = user.accessToken
     }
     generators.setAuthToken(accessToken)
+    collections.setAuthToken(accessToken)
     me.setAuthToken(accessToken)
     commit('setUserInfo', { user, returnUrl })
   }

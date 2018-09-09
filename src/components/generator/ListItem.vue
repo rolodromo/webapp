@@ -8,7 +8,7 @@
 
       <v-flex d-flex class=' py-0 px-2' style='flex-grow: 0;'>
         <v-card-title class='secondary'>
-          <div class='title force-color'>{{ generator.name }}</div>
+          <div class='title white--text'>{{ generator.name }}</div>
         </v-card-title>
       </v-flex>
 
@@ -68,8 +68,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-.force-color {
-  color: #fff;
-}
-</style>
