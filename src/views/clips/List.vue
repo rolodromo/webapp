@@ -20,7 +20,7 @@
         </v-btn>
 
         <v-list>
-          <v-list-tile @click='openDialog("sound")' >
+          <v-list-tile @click='openDialog("sounds")' >
             <v-list-tile-avatar>
               <v-icon color='success'>save_alt</v-icon>
             </v-list-tile-avatar>
@@ -90,6 +90,7 @@ export default {
     },
     async addCollection({ name, desc }) {
       const type = this.collectionType
+      console.log('ADD', type, this[type])
 
       const newCol = await this.createCollection({
         name,

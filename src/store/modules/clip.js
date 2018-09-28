@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { has, filter, unset } from 'lodash'
+import { has, filter } from 'lodash'
 
 export const state = {
   clipped: {}
