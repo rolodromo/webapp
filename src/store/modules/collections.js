@@ -9,9 +9,9 @@ import {
   deleteCollection
 } from '../../modules/api/collections'
 
-const ALLOWED_TYPES = ['sounds', 'dice', 'generators']
+const ALLOWED_TYPES = ['sound', 'dice', 'generator']
 const PICK_FIELDS = {
-  sounds: ['id', 'name', 'src', 'tag', 'url']
+  sound: ['id', 'name', 'src', 'tag', 'url']
 }
 export const state = {
   type: '',
@@ -46,23 +46,33 @@ const actions = {
     }
     const newList = items.map(item => {
       const filtered = pick(item, PICK_FIELDS[type])
-      if (type === 'sounds') {
+      if (type === 'sound') {
         return cleanName(filtered)
       }
       return filtered
     })
     const formattedItems = keyBy(newList, item => `${type}/${item.id}`)
-    const newCol = await createCollection({ name, desc, type, items: formattedItems })
-
-    commit('toast/success', 'Guardado con éxito', { root: true })
-    return newCol
+    try {
+      const newCol = await createCollection({ name, desc, type, items: formattedItems })
+      commit('toast/success', 'Guardado con éxito', { root: true })
+      return newCol
+    } catch (e) {
+      console.log(e)
+      commit('toast/error', 'Error al guardar', { root: true })
+      return false
+    }
   },
   async renameCollection({ commit }, { id, name, desc }) {
-    const newCol = await renameCollection({ id, name, desc })
-
-    commit('renameCollection', { name, desc })
-    commit('toast/success', 'Guardado con éxito', { root: true })
-    return newCol
+    try {
+      const newCol = await renameCollection({ id, name, desc })
+      commit('renameCollection', { name, desc })
+      commit('toast/success', 'Guardado con éxito', { root: true })
+      return newCol
+    } catch (e) {
+      console.log(e)
+      commit('toast/error', 'Error al guardar', { root: true })
+      return false
+    }
   },
   async deleteCollection({ commit }, id) {
     try {
@@ -80,13 +90,11 @@ const actions = {
       throw new Error(`Unknown type ${type}"`)
     }
 
-    console.log('LOADING', type)
     const list = await listByType(type)
 
     commit('setList', { type, list })
   },
   async loadCollection({ commit }, id) {
-    console.log('LOADING', id)
     const collection = await loadCollection(id)
 
     commit('setCollection', collection)

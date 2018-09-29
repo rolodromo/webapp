@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap>
 
-    <v-flex xs12 pa-0 ma-0 >
+    <v-flex xs12 pa-0 ma-0>
       <v-card-text class='py-0'>
         <v-text-field
           autofocus
@@ -9,8 +9,6 @@
           v-model='searchText'
           prepend-icon='search'
           clear-icon='backspace'
-          append-outer-icon='settings'
-          @click:append-outer='toggleAdvanced()'
           @click:clear='clear'
           @keyup.enter='doSearch'
         ></v-text-field>
@@ -18,7 +16,7 @@
     </v-flex>
 
     <v-slide-y-transition>
-      <v-flex xs12 v-if='advanced'>
+      <v-flex xs12>
         <v-layout>
           <v-flex xs12 sm6 d-flex>
             <v-select
@@ -61,8 +59,13 @@ export default {
         { text: 'likes ↓', value: 'rating_desc' },
         { text: 'likes ↑', value: 'rating_asc' }
       ],
-      durationList: [{ text: '< 10s', value: '10' }, { text: '< 30s', value: '30' }, { text: 'Todos', value: '' }],
-      advanced: true
+      durationList: [
+        { text: '< 10s', value: '10' },
+        { text: '< 30s', value: '30' },
+        { text: '< 1m', value: '60' },
+        { text: '< 5m', value: '300' },
+        { text: 'Todos', value: '' }
+      ]
     }
   },
   computed: {
@@ -84,9 +87,6 @@ export default {
     doSearch() {
       const { searchText: term, durationSelect: maxDuration, sortSelect: sort } = this
       this.search({ term, maxDuration, sort })
-    },
-    toggleAdvanced() {
-      this.advanced = !this.advanced
     }
   }
 }

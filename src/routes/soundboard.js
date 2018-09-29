@@ -13,7 +13,7 @@ export default [
         name: 'soundboard',
         component: CollectionList,
         beforeEnter: async (to, from, next) => {
-          await store.dispatch('collections/loadCollections', 'sounds')
+          await store.dispatch('collections/loadCollections', 'sound')
           next()
         }
       },

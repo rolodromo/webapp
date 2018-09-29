@@ -20,7 +20,7 @@
         </v-btn>
 
         <v-list>
-          <v-list-tile @click='openDialog("sounds")' >
+          <v-list-tile @click='openDialog("sound")'>
             <v-list-tile-avatar>
               <v-icon color='success'>save_alt</v-icon>
             </v-list-tile-avatar>
@@ -31,9 +31,10 @@
     </v-toolbar>
 
     <v-layout row wrap>
-      <v-card-title v-if='!sounds.length' flat class='font-weight-thin font-italic title ml-5'>No hay clips de audio</v-card-title>
+      <v-card-title v-if='!sounds.length' flat class='font-weight-thin font-italic title ml-5'>No hay clips de audio
+      </v-card-title>
       <v-flex xs12 sm10 md6 lg4 xl3 v-for='sound in sounds' :key='sound.id'>
-        <clip-item :element='sound' ></clip-item>
+        <clip-item :element='sound'></clip-item>
       </v-flex>
     </v-layout>
 
@@ -48,7 +49,9 @@
     </v-toolbar>
 
     <v-layout row wrap>
-      <v-card-title v-if='!generators.length' flat class='font-weight-thin font-italic title ml-5'>No hay generadores seleccionados</v-card-title>
+      <v-card-title v-if='!generators.length' flat class='font-weight-thin font-italic title ml-5'>No hay generadores
+      seleccionados
+      </v-card-title>
       <v-flex xs12 sm10 md6 lg4 xl3 v-for='generator in generators' :key='generator.id'>
         <clip-item :element='generator'></clip-item>
       </v-flex>
@@ -90,13 +93,13 @@ export default {
     },
     async addCollection({ name, desc }) {
       const type = this.collectionType
-      console.log('ADD', type, this[type])
+      const items = this[`${type}s`] // TODO: remove horrible hack
 
       const newCol = await this.createCollection({
         name,
         desc,
         type,
-        items: this[type]
+        items
       })
 
       this.clearClips(type)

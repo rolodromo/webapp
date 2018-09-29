@@ -65,7 +65,6 @@ export const mutations = {
         alias: pickBy(state.current.data.alias, (v, k) => k !== key)
       }
     }
-    console.log('new state', key, state.current)
   }
 }
 export const getters = {

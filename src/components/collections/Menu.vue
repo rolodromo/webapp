@@ -68,7 +68,6 @@ export default {
     calcPerms() {
       this.canEdit = this.isAdmin || this.isNew || this.userId === this.collection.authorId
       this.canDelete = !this.isNew && (this.isAdmin || this.userId === this.collection.authorId)
-      console.log('perm', this.canEdit, this.canDelete, this.userId, this.collection.authorId)
     },
     async openDialog() {
       this.newCollectionDialog = true
