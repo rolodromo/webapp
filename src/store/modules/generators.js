@@ -89,7 +89,7 @@ export const actions = {
     const generator = await api.loadGenerator(id)
     commit('setGenerator', generator)
   },
-  async save({ commit }, payload) {
+  async save({ commit, dispatch }, payload) {
     let newData
 
     const data = {
@@ -100,6 +100,7 @@ export const actions = {
       }
     }
 
+    dispatch('wait/start', 'generator-load', { root: true })
     try {
       if (!payload.id) {
         newData = await api.createGenerator(data)
@@ -114,9 +115,12 @@ export const actions = {
     } catch (e) {
       console.log(e)
       commit('toast/error', 'Error al guardar', { root: true })
+    } finally {
+      dispatch('wait/end', 'generator-load', { root: true })
     }
   },
-  async remove({ state, commit }) {
+  async remove({ state, commit, dispatch }) {
+    dispatch('wait/start', 'generator-remove', { root: true })
     try {
       await api.deleteGenerator(state.current.id)
       commit('toast/success', 'Eliminado con éxito', { root: true })
@@ -125,10 +129,14 @@ export const actions = {
       console.log(e)
       commit('toast/error', 'Error al eliminar', { root: true })
       return false
+    } finally {
+      dispatch('wait/end', 'generator-remove', { root: true })
     }
   },
-  async loadList({ commit }, type) {
+  async loadList({ commit, dispatch }, type) {
     let list
+    commit('reset')
+    dispatch('wait/start', 'generator-load', { root: true })
     switch (type) {
       case 'featured':
         list = await api.loadFeatured()
@@ -145,6 +153,7 @@ export const actions = {
       default:
         list = await api.loadAll()
     }
+    await dispatch('wait/end', 'generator-load', { root: true })
     commit('setList', { type, list })
   },
   async loadGeneratorList({ state, commit }) {
