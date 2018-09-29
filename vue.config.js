@@ -6,8 +6,8 @@ module.exports = {
   integrity: true,
   pwa: {
     name: 'Rolodromo',
-    themeColor: '#524671',
-    msTileColor: '#7f7c8a',
+    themeColor: '#19253c',
+    msTileColor: '#19253c',
     workboxPluginMode: 'InjectManifest',
     workboxOptions: {
       // swSrc is required in InjectManifest mode.
@@ -19,6 +19,6 @@ module.exports = {
   productionSourceMap: false,
   configureWebpack: {
     plugins: [new IgnorePlugin(/^\.\/locale$/, /moment$/), new LodashModuleReplacementPlugin()],
-    devtool: process.env.NODE_ENV !== 'production' ? 'nosources-source-map' : 'source-map'
+    devtool: process.env.NODE_ENV !== 'production' ? 'source-map' : ''
   }
 }

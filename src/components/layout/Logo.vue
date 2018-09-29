@@ -1,6 +1,6 @@
 <template>
   <a class='logo text-xs-center' href='/' title='Rolodromo.com'>
-    <img :class='classSize' src='/img/icons/icon-512x512.png' alt='Rolodromo.com' />
+    <img :class='classSize' src='/images/icons/icon-512x512.png' alt='Rolodromo.com' />
   </a>
 </template>
 <script>

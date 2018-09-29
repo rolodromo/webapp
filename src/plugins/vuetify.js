@@ -5,8 +5,8 @@ import 'vuetify/dist/vuetify.min.css'
 // COLORS
 Vue.use(Vuetify, {
   theme: {
-    primary: '#000000',
-    secondary: '#665a7b',
+    primary: '#19253c',
+    secondary: '#2a2f62',
     accent: '#c94444',
     red: '#c94444',
     blue: '#396187',
