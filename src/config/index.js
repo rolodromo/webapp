@@ -3,7 +3,7 @@ const { VUE_APP_API_URL, VUE_APP_FREESOUND_URL, VUE_APP_AUTH_CALLBACK_URL } = pr
 const config = {
   api: {
     baseUrl: VUE_APP_API_URL || 'https://api.rolodromo.com',
-    freesoundUrl: VUE_APP_FREESOUND_URL || 'https://freesound.rolodromo.com'
+    freesoundUrl: VUE_APP_FREESOUND_URL || 'https://api.rolodromo.com/api/search/freesound'
   },
   auth0: {
     AUTH0_DOMAIN: 'guumaster.eu.auth0.com',

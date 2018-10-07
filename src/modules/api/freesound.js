@@ -15,7 +15,7 @@ export const cleanName = sound => ({
     sound.name
       .toLowerCase()
       .replace(/(_|\s)+/g, ' ')
-      .replace(/\.(aif|mp3|wav|flacc|ogg|m4a|aac|oga|webm)$/, '')
+      .replace(/\.(aif|mp3|wav|flaac|flacc|ogg|m4a|aac|oga|webm)$/, '')
       .trim()
   )
 })
