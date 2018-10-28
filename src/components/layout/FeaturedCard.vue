@@ -1,7 +1,7 @@
 <template>
   <v-card
     :to='to'
-    dark class='elevation-10' style='border-radius: 10px!important;'>
+    dark class='elevation-10' style='min-width: 400px; border-radius: 10px!important;'>
     <v-img
       height='50vh'
       class='text--white'
@@ -43,7 +43,6 @@ export default {
 .icon-pos {
   font-size: 5em;
   position: absolute;
-  top: 0.3em;
-  left: -0.3em;
+  top: -0.1em;
 }
 </style>

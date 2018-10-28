@@ -163,6 +163,7 @@ export default {
 <style scoped>
 #menu .gi {
   margin: 0;
+  padding-left: 0.1em;
   width: 1em;
 }
 </style>

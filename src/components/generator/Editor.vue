@@ -53,7 +53,7 @@
             slot='extension'
             v-model='tab'
             color='secondary'
-            grow dark
+            grow dark ripple
           >
             <v-tabs-slider color='red'></v-tabs-slider>
             <v-tab>
@@ -146,9 +146,9 @@
             <!-- TABLAS -->
             <v-tab-item>
               <v-textarea
-                class=' table-area pa-1 ma-2  grey lighten-4'
-                :height='small ? "70vh" : "78.5vh"'
-                rows='35'
+                class=' table-area pa-0 ma-1  grey lighten-4'
+                height='90%'
+                rows='23'
                 no-resize
                 hide-details
                 flat
@@ -192,7 +192,7 @@
             </v-tab-item>
 
             <!-- GENERATOR -->
-            <v-tab-item id='generator-test' lazy>
+            <v-tab-item lazy>
               <v-card
                 flat class='transparent ql-container pa-0 ma-0 text-container'
                 :height='small ? "70.5vh" : "81.3vh"'
